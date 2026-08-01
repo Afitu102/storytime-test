@@ -1,0 +1,876 @@
+// ======================================
+// STORYTIME APP V2 
+// One JavaScript for all pages
+// ======================================
+
+// Global Variables
+let currentAudio = null;
+let currentStory = null;
+
+// Detect current page
+const currentPage =
+window.location.pathname
+.split("/")
+.pop();
+
+// ======================================
+// THEME MANAGER
+// ======================================
+
+function loadTheme() {
+
+    const savedTheme =
+        localStorage.getItem("theme") || "dark";
+
+    document.body.setAttribute(
+        "data-theme",
+        savedTheme
+    );
+
+}
+
+function toggleTheme() {
+
+    const currentTheme =
+        document.body.getAttribute("data-theme");
+
+    const newTheme =
+        currentTheme === "dark"
+        ? "light"
+        : "dark";
+
+    document.body.setAttribute(
+        "data-theme",
+        newTheme
+    );
+
+    localStorage.setItem(
+        "theme",
+        newTheme
+    );
+
+}
+
+document.addEventListener(
+    "DOMContentLoaded",
+    loadTheme
+);
+
+// ======================================
+// THEME BUTTON
+// ======================================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const themeBtn =
+        document.getElementById("themeToggle");
+
+    if (!themeBtn) return;
+
+    function updateThemeButton() {
+
+        const theme =
+            document.body.getAttribute("data-theme");
+
+        if (theme === "dark") {
+
+            themeBtn.innerHTML =
+                "🌙 Dark Mode";
+
+        } else {
+
+            themeBtn.innerHTML =
+                "☀️ Light Mode";
+
+        }
+
+    }
+
+    updateThemeButton();
+
+    themeBtn.addEventListener("click", () => {
+
+        toggleTheme();
+
+        updateThemeButton();
+
+    });
+
+});
+
+
+// ======================================
+// STORAGE ENGINE V6
+// ======================================
+
+// ---------- STORY PROGRESS ----------
+
+function getAllProgress() {
+
+    return JSON.parse(
+
+        localStorage.getItem("storytime_progress")
+
+    ) || {};
+
+}
+
+function saveProgress(story) {
+
+    const progress = getAllProgress();
+
+    progress[story.title] = story;
+
+    localStorage.setItem(
+
+        "storytime_progress",
+
+        JSON.stringify(progress)
+
+    );
+
+}
+
+function getProgress(title) {
+
+    const progress = getAllProgress();
+
+    return progress[title] || null;
+
+}
+
+// ---------- CONTINUE LISTENING ----------
+
+function saveContinueStory(title) {
+
+    localStorage.setItem(
+
+        "storytime_continue",
+
+        title
+
+    );
+
+}
+
+function getContinueStory() {
+
+    const title =
+
+        localStorage.getItem("storytime_continue");
+
+    if (!title) return null;
+
+    return getProgress(title);
+
+}
+
+// ---------- RECENTLY PLAYED ----------
+
+function saveRecentlyPlayed(title) {
+
+    let recent = JSON.parse(
+
+        localStorage.getItem("storytime_recent")
+
+    ) || [];
+
+    recent = recent.filter(
+
+        item => item !== title
+
+    );
+
+    recent.unshift(title);
+
+    recent = recent.slice(0, 2);
+
+    localStorage.setItem(
+
+        "storytime_recent",
+
+        JSON.stringify(recent)
+
+    );
+
+}
+
+function getRecentlyPlayed() {
+
+    const recent = JSON.parse(
+
+        localStorage.getItem("storytime_recent")
+
+    ) || [];
+
+    return recent
+
+        .map(title => getProgress(title))
+
+        .filter(Boolean);
+
+}
+    
+// ======================================
+// AUDIO ENGINE V6 (PART A)
+// ======================================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const storyCards =
+        document.querySelectorAll(".story-card");
+
+    // Ignore pages without stories
+    if (storyCards.length === 0) return;
+
+    storyCards.forEach(card => {
+
+        const audio =
+            card.querySelector(".audio-player");
+
+        const playBtn =
+            card.querySelector(".play-btn");
+
+        const pauseBtn =
+            card.querySelector(".pause-btn");
+
+        const timeDisplay =
+            card.querySelector(".time");
+
+        const title =
+            card.querySelector("h2").textContent;
+
+        const category =
+            card.dataset.category;
+
+        const page =
+            card.dataset.page;
+
+        const index =
+            [...storyCards].indexOf(card);
+
+        // PART B starts here...
+        // =============================
+          // PLAY
+        // =============================
+
+playBtn.addEventListener("click", () => {
+
+    // Stop previous audio
+    if (currentAudio && currentAudio !== audio) {
+
+        currentAudio.pause();
+
+        document
+            .querySelectorAll(".play-btn")
+            .forEach(btn => {
+
+                btn.textContent = "▶ Play";
+
+            });
+
+    }
+
+    currentAudio = audio;
+    currentStory = {
+
+        title,
+        category,
+        page,
+        index
+
+    };
+
+     // Hide Continue Listening card if user starts manually
+
+const continueCard =
+    document.getElementById("continueCard");
+
+if (continueCard) {
+
+    continueCard.style.opacity = "0";
+
+    setTimeout(() => {
+
+        continueCard.style.display = "none";
+
+    }, 300);
+
+   }
+
+  localStorage.setItem(
+    "storytime_continue",
+    title
+);
+    
+    const progress = getProgress(title);
+
+if (progress) {
+
+    audio.addEventListener("loadedmetadata", () => {
+
+        audio.currentTime = progress.time;
+
+        audio.play();
+
+    }, { once:true });
+
+    audio.addEventListener("playing", () => {
+
+        playBtn.textContent = "⏸ Playing";
+
+    }, { once:true });
+
+    audio.load();
+
+} else {
+
+    audio.play();
+
+audio.addEventListener("playing", () => {
+
+    playBtn.textContent = "⏸ Playing";
+
+}, { once:true });
+ 
+}
+
+});
+
+// =============================
+// PAUSE
+// =============================
+
+pauseBtn.addEventListener("click", () => {
+
+    audio.pause();
+
+    playBtn.textContent =
+        "▶ Play";
+
+});
+
+// =============================
+// SAVE PROGRESS
+// =============================
+
+audio.addEventListener("timeupdate", () => {
+
+    if (!currentStory) return;
+
+    const mins =
+        Math.floor(audio.currentTime / 60);
+
+    const secs =
+        Math.floor(audio.currentTime % 60);
+
+    // Update timer
+    timeDisplay.textContent =
+        mins + ":" +
+        (secs < 10 ? "0" + secs : secs);
+
+    // Story object
+    const story = {
+
+        title,
+        category,
+        page,
+        index,
+        time: audio.currentTime
+
+    };
+
+    // Save progress
+    saveProgress(story);
+
+    // Make this the Continue story
+    saveContinueStory(title);
+
+    // Update Recently Played
+    saveRecentlyPlayed(title);
+
+    // Update Continue Card live
+    const continueTitle =
+        document.getElementById("continueTitle");
+
+    const continueTime =
+        document.getElementById("continueTime");
+
+    if (continueTitle && continueTime) {
+
+        continueTitle.textContent =
+            title;
+
+        continueTime.textContent =
+            "Continue from " +
+            mins + ":" +
+            (secs < 10 ? "0" + secs : secs)
+    
+    }
+   });    
+    
+    // =============================
+// FINISHED
+// =============================
+
+audio.addEventListener("ended", () => {
+
+    playBtn.textContent =
+        "▶ Play";
+
+    if (currentAudio === audio) {
+
+        currentAudio = null;
+
+    }
+
+});    
+    });
+
+});
+
+function audioResumeStory(story) {
+
+    const cards =
+        document.querySelectorAll(".story-card");
+
+    const card =
+        cards[story.index];
+
+    // Scroll to the story first
+card.scrollIntoView({
+
+    behavior: "smooth",
+
+    block: "center"
+
+});
+  
+    if (!card) return;
+
+    const audio =
+        card.querySelector(".audio-player");
+
+    const playBtn =
+        card.querySelector(".play-btn");
+
+    // Leave the button as "Play"
+    if (playBtn) {
+
+        playBtn.textContent = "▶ Play";
+
+    }
+
+    currentAudio = audio;
+    currentStory = story;
+
+    audio.addEventListener("loadedmetadata", () => {
+
+        audio.currentTime = story.time;
+
+        audio.play();
+
+    }, { once: true });
+
+    audio.addEventListener("playing", () => {
+
+    if (playBtn) {
+
+        playBtn.textContent = "⏸ Playing";
+
+    }
+
+    // Scroll to the story that is now playing
+    card.scrollIntoView({
+
+        behavior: "smooth",
+
+        block: "center"
+
+    });
+
+}, { once: true });
+    
+    audio.load();
+
+}
+
+// ======================================
+// CONTINUE LISTENING MANAGER V6
+// ======================================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const continueCard =
+        document.getElementById("continueCard");
+
+    const continueTitle =
+        document.getElementById("continueTitle");
+
+    const continueTime =
+        document.getElementById("continueTime");
+
+    const continueBtn =
+        document.getElementById("continueBtn");
+
+    if (
+        !continueCard ||
+        !continueTitle ||
+        !continueTime ||
+        !continueBtn
+    ) return;
+
+    const story =
+        getContinueStory();
+
+    if (!story) {
+
+        continueCard.style.display = "none";
+
+        return;
+
+    }
+
+    continueCard.style.display = "block";
+
+    continueTitle.textContent =
+        story.title;
+
+    const mins =
+        Math.floor(story.time / 60);
+
+    const secs =
+        Math.floor(story.time % 60);
+
+    continueTime.textContent =
+        "Continue from " +
+        mins + ":" +
+        (secs < 10 ? "0" + secs : secs);
+  
+    continueBtn.addEventListener("click", () => {
+
+    continueCard.style.opacity = "0";
+
+    setTimeout(() => {
+
+        continueCard.style.display = "none";
+
+    }, 300);
+
+    sessionStorage.setItem(
+        "storytime_resume",
+        "true"
+    );
+
+    if (currentPage !== story.page) {
+
+        window.location.href =
+            story.page;
+
+    } else {
+
+        audioResumeStory(story);
+
+    }
+
+});
+    
+});
+
+// ======================================
+// RECENTLY PLAYED MANAGER V6
+// ======================================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const recentContainer =
+        document.getElementById("recentStories");
+
+    if (!recentContainer) return;
+
+    const recent =
+        getRecentlyPlayed();
+
+    recentContainer.innerHTML = "";
+
+    if (recent.length === 0) return;
+
+    recent.forEach(story => {
+
+        const item =
+            document.createElement("div");
+
+        item.className =
+            "recent-item";
+
+        item.innerHTML = `
+            <h3>${story.title}</h3>
+            <p>${story.category}</p>
+        `;
+
+        item.addEventListener("click", () => {
+
+    // Make this the current Continue story
+    localStorage.setItem(
+        "storytime_continue",
+        story.title
+    );
+
+    // If story is on another page, go there
+    if (currentPage !== story.page) {
+
+        window.location.href = story.page;
+
+        return;
+
+    }
+
+    // Stay on this page
+    // Update the Continue Listening card only
+
+    const continueTitle =
+        document.getElementById("continueTitle");
+
+    const continueTime =
+        document.getElementById("continueTime");
+
+    const continueCard =
+        document.getElementById("continueCard");
+
+    if (continueCard)
+        continueCard.style.display = "block";
+
+    if (continueTitle)
+        continueTitle.textContent = story.title;
+
+    if (continueTime) {
+
+        const mins = Math.floor(story.time / 60);
+        const secs = Math.floor(story.time % 60);
+
+        continueTime.textContent =
+            "Continue from " +
+            mins + ":" +
+            (secs < 10 ? "0" + secs : secs);
+
+   }
+             
+
+});
+       
+        recentContainer.appendChild(item);
+
+    });
+
+  });      
+
+// ======================================
+// AUTO RESUME MANAGER V6
+// ======================================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    if (
+        sessionStorage.getItem("storytime_resume") !== "true"
+    ) return;
+
+    sessionStorage.removeItem("storytime_resume");
+
+    const story =
+        getContinueStory();
+
+    if (!story) return;
+
+    if (currentPage !== story.page) return;
+
+    setTimeout(() => {
+
+        audioResumeStory(story);
+
+    }, 300);
+
+});
+
+
+// ======================================
+// NEWLY ADDED MANAGER V1
+// ======================================
+
+const storyPages = [
+
+    "folktales.html",
+    "animalstories.html",
+    "fairytales.html",
+    "authors.html",
+  
+
+];
+
+document.addEventListener("DOMContentLoaded", async () => {
+
+    const container =
+        document.getElementById("newStories");
+
+    if (!container) return;
+
+    let allStories = [];
+
+    for (const page of storyPages) {
+
+        try {
+
+            const response = await fetch(page);
+
+            const html = await response.text();
+
+            const parser = new DOMParser();
+
+            const doc =
+                parser.parseFromString(
+                    html,
+                    "text/html"
+                );
+
+            const stories =
+                doc.querySelectorAll(
+                    '.story-card[data-new="true"]'
+                );
+
+            stories.forEach(card => {
+
+                allStories.push({
+
+                    title:
+                        card.querySelector("h2").textContent,
+
+                    category:
+                        card.dataset.category,
+
+                    page:
+                        card.dataset.page,
+
+                    added:
+                        card.dataset.added
+
+                });
+
+            });
+
+        } catch (err) {
+
+            console.log(page + " not found.");
+
+        }
+
+    }
+
+  // Sort newest first
+allStories.sort((a, b) => {
+
+    return new Date(b.added) - new Date(a.added);
+
+});
+
+// Keep only stories added within 7 days
+
+const today = new Date();
+
+allStories = allStories.filter(story => {
+
+    const addedDate = new Date(story.added);
+
+    const daysOld =
+        (today - addedDate) / (1000 * 60 * 60 * 24);
+
+    return daysOld <= 7;
+
+});
+
+// Show only the newest five
+
+allStories = allStories.slice(0, 5);
+// Display them
+allStories.forEach(story => {
+
+    const card = document.createElement("div");
+
+    card.className = "new-story-card";
+
+    card.innerHTML = `
+        <h3>${story.title}</h3>
+        <p>${story.category}</p>
+        <span class="badge">NEW</span>
+    `;
+
+    card.addEventListener("click", () => {
+
+        window.location.href =
+            story.page +
+            "?story=" +
+            encodeURIComponent(story.title);
+
+    });
+
+    container.appendChild(card);
+
+});
+
+});
+
+// ======================================
+// NEWLY ADDED SCROLL MANAGER
+// ======================================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const params = new URLSearchParams(window.location.search);
+
+    const storyTitle = params.get("story");
+
+    if (!storyTitle) return;
+
+    const cards = document.querySelectorAll(".story-card");
+
+    cards.forEach(card => {
+
+        const title =
+            card.querySelector("h2").textContent.trim();
+
+        if (title === storyTitle) {
+
+            // Scroll smoothly to the story
+            card.scrollIntoView({
+
+                behavior: "smooth",
+
+                block: "center"
+
+            });
+
+             // Make this story the active one
+
+            const playBtn =
+           card.querySelector(".play-btn");
+
+             if (playBtn) {
+
+            playBtn.focus();
+
+}
+            
+            // Highlight the story briefly
+            card.classList.add("new-story-highlight");
+            card.style.transition =
+                "0.5s";
+
+            setTimeout(() => {
+
+                card.classList.remove("new-story-highlight");
+
+            }, 3000);
+
+        }
+
+    });
+
+});
