@@ -618,6 +618,77 @@ box-shadow:0 0 5px gold;
 
 }
 
+
+.chapter{
+
+display:none;
+
+animation:fadeSlide .45s ease;
+
+}
+
+.chapter.active{
+
+display:block;
+
+}
+
+.chapter-controls{
+
+display:flex;
+
+justify-content:space-between;
+
+margin-top:40px;
+
+margin-bottom:30px;
+
+}
+
+.chapter-controls button{
+
+padding:12px 20px;
+
+border:none;
+
+border-radius:12px;
+
+background:#2563eb;
+
+color:white;
+
+font-size:16px;
+
+cursor:pointer;
+
+}
+
+.chapter-controls button:hover{
+
+opacity:.9;
+
+}
+
+@keyframes fadeSlide{
+
+from{
+
+opacity:0;
+
+transform:translateX(25px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateX(0);
+
+}
+
+}
+
 to{
 
 box-shadow:0 0 20px gold;
