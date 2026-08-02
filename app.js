@@ -874,3 +874,90 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 });
+
+
+/* ==========================
+   STORY CHAPTER READER
+========================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const chapters = document.querySelectorAll(".chapter");
+
+    if (chapters.length === 0) return;
+
+    const prevBtn = document.getElementById("prevChapter");
+    const nextBtn = document.getElementById("nextChapter");
+
+    // Each story gets its own saved progress
+    const storyID = document.title.replace(/\s+/g, "_");
+
+    let currentChapter =
+        parseInt(localStorage.getItem(storyID)) || 0;
+
+    function showChapter(index){
+
+        chapters.forEach((chapter,i)=>{
+
+            chapter.classList.remove("active");
+
+            if(i===index){
+
+                chapter.classList.add("active");
+
+                window.scrollTo({
+                    top:0,
+                    behavior:"smooth"
+                });
+
+            }
+
+        });
+
+        // Save progress
+        localStorage.setItem(storyID,index);
+
+        // Previous button
+        prevBtn.style.visibility =
+        index===0 ? "hidden" : "visible";
+
+        // Next button
+        if(index===chapters.length-1){
+
+            nextBtn.style.display="none";
+
+        }else{
+
+            nextBtn.style.display="inline-block";
+
+        }
+
+    }
+
+    showChapter(currentChapter);
+
+    nextBtn.addEventListener("click",()=>{
+
+        if(currentChapter<chapters.length-1){
+
+            currentChapter++;
+
+            showChapter(currentChapter);
+
+        }
+
+    });
+
+    prevBtn.addEventListener("click",()=>{
+
+        if(currentChapter>0){
+
+            currentChapter--;
+
+            showChapter(currentChapter);
+
+        }
+
+    });
+
+});
