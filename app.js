@@ -1065,3 +1065,18 @@ document.addEventListener("DOMContentLoaded",()=>{
 Reader.loadRecent();
 
 });
+
+/* ======================================
+   AUTO DETECT STORY PAGE
+====================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    // If this page is a story page...
+    if (document.body.dataset.storyTitle) {
+
+        Reader.saveStory();
+
+    }
+
+});
