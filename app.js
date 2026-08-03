@@ -889,48 +889,38 @@ document.addEventListener("DOMContentLoaded", () => {
     const prevBtn = document.getElementById("prevChapter");
     const nextBtn = document.getElementById("nextChapter");
 
-    // Each story gets its own saved progress
     const storyID = document.title.replace(/\s+/g, "_");
 
+    // Load saved chapter (convert chapter number back to index)
     let currentChapter =
-        parseInt(localStorage.getItem(storyID)) || 0;
+        (parseInt(localStorage.getItem(storyID)) || 1) - 1;
 
     function showChapter(index){
 
         chapters.forEach((chapter,i)=>{
 
-            chapter.classList.remove("active");
-
-            if(i===index){
-
-                chapter.classList.add("active");
-
-                window.scrollTo({
-                    top:0,
-                    behavior:"smooth"
-                });
-
-            }
+            chapter.classList.toggle("active", i===index);
 
         });
 
-        // Save progress
+        window.scrollTo({
+            top:0,
+            behavior:"smooth"
+        });
+
+        // Save chapter number (1,2,3...)
         localStorage.setItem(storyID, index + 1);
 
-        // Previous button
-        prevBtn.style.visibility =
-        index===0 ? "hidden" : "visible";
-
-        // Next button
-        if(index===chapters.length-1){
-
-            nextBtn.style.display="none";
-
-        }else{
-
-            nextBtn.style.display="inline-block";
-
+        // Update Recently Read immediately
+        if(typeof Reader !== "undefined"){
+            Reader.saveStory();
         }
+
+        prevBtn.style.visibility =
+            index===0 ? "hidden" : "visible";
+
+        nextBtn.style.display =
+            index===chapters.length-1 ? "none" : "inline-block";
 
     }
 
