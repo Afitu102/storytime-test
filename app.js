@@ -925,18 +925,38 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     showChapter(currentChapter);
+// Make sure saved chapter is within range
+currentChapter = Math.max(
+    0,
+    Math.min(currentChapter, chapters.length - 1)
+);
 
-    nextBtn.addEventListener("click",()=>{
+showChapter(currentChapter);
 
-        if(currentChapter<chapters.length-1){
+nextBtn.addEventListener("click", () => {
 
-            currentChapter++;
+    if (currentChapter < chapters.length - 1) {
 
-            showChapter(currentChapter);
+        currentChapter++;
 
-        }
+        showChapter(currentChapter);
 
-    });
+    }
+
+});
+
+prevBtn.addEventListener("click", () => {
+
+    if (currentChapter > 0) {
+
+        currentChapter--;
+
+        showChapter(currentChapter);
+
+    }
+
+});
+    
 
     prevBtn.addEventListener("click",()=>{
 
