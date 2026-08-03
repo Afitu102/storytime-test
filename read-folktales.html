@@ -13,16 +13,18 @@
 
 </head>
 
-<body>
+<body data-category="African Folktales">
 
 <header class="home-header">
 
 <h1 class="home-logo">
 🪘 African Folktales
 </h1>
+
 <button id="themeToggle" class="theme-btn">
 🌙 Dark Mode
 </button>
+
 <p class="home-subtitle">
 Choose a folktale and enjoy reading.
 </p>
@@ -35,9 +37,46 @@ Choose a folktale and enjoy reading.
 
 <main class="home-container">
 
+<!-- Recently Read -->
+
+<section class="recent-section">
+
+<h2>📖 Recently Read</h2>
+
+<div id="recentReadStories">
+
+<p>No stories read yet.</p>
+
+</div>
+
+</section>
+
+<!-- Newly Added -->
+
+<section class="newly-added">
+
+<h2>✨ Newly Added Stories</h2>
+
+<div id="newReadStories"></div>
+
+</section>
+
+<h2 class="category-heading">
+
+Available Stories
+
+</h2>
+
 <div class="category-grid">
 
-<a href="the_girl_beneath_the_water.html" class="home-category-card">
+<a href="the_girl_beneath_the_water.html"
+class="home-category-card story-card"
+
+data-title="The Girl Beneath the Water"
+
+data-image="https://files.catbox.moe/e8i6z2.jpg"
+
+data-category="African Folktales">
 
 <span class="category-icon">🌊</span>
 
@@ -47,14 +86,22 @@ Choose a folktale and enjoy reading.
 
 </a>
 
-<h3>New Stories coming Soon...</h3>
+<div class="home-category-card">
 
-</a>
+<span class="category-icon">📚</span>
+
+<h3>More Stories Coming Soon...</h3>
+
+<p>New African folktales will be added regularly.</p>
+
+</div>
 
 </div>
 
 </main>
+
 <script src="app.js"></script>
+
 </body>
 
 </html>
