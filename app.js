@@ -976,9 +976,11 @@ const image=document.body.dataset.storyImage;
 const category=document.body.dataset.storyCategory;
 const page=window.location.pathname.split("/").pop();
 
-const chapter=
-parseInt(localStorage.getItem(page+"_chapter"))||1;
+const storyID =
+document.title.replace(/\s+/g,"_");
 
+const chapter =
+parseInt(localStorage.getItem(storyID)) || 1;
 let recent=
 JSON.parse(localStorage.getItem("recentRead"))||[];
 
