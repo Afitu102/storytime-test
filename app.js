@@ -961,11 +961,9 @@ const Reader = {
 
 saveStory(){
 
-const title=document.body.dataset.storyTitle;
-const image=document.body.dataset.storyImage;
-const category=document.body.dataset.storyCategory;
-const page=window.location.pathname.split("/").pop();
-
+const title = document.body.dataset.storyTitle || document.title;
+const image = document.body.dataset.storyImage || "";
+const category = document.body.dataset.storyCategory || "";
 const storyID =
 document.title.replace(/\s+/g,"_");
 
