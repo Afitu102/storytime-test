@@ -961,3 +961,107 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 });
+
+
+/* ======================================
+   STORYTIME READER ENGINE
+====================================== */
+
+const Reader = {
+
+saveStory(){
+
+const title=document.body.dataset.storyTitle;
+const image=document.body.dataset.storyImage;
+const category=document.body.dataset.storyCategory;
+const page=window.location.pathname.split("/").pop();
+
+const chapter=
+parseInt(localStorage.getItem(page+"_chapter"))||1;
+
+let recent=
+JSON.parse(localStorage.getItem("recentRead"))||[];
+
+recent=recent.filter(x=>x.page!==page);
+
+recent.unshift({
+
+title,
+
+image,
+
+category,
+
+page,
+
+chapter,
+
+time:Date.now()
+
+});
+
+recent=recent.slice(0,5);
+
+localStorage.setItem(
+
+"recentRead",
+
+JSON.stringify(recent)
+
+);
+
+},
+
+loadRecent(){
+
+const box=document.getElementById("recentReadStories");
+
+if(!box)return;
+
+const recent=
+
+JSON.parse(localStorage.getItem("recentRead"))||[];
+
+if(recent.length===0){
+
+box.innerHTML="<p>No stories read yet.</p>";
+
+return;
+
+}
+
+box.innerHTML="";
+
+recent.forEach(story=>{
+
+box.innerHTML+=`
+
+<a href="${story.page}"
+
+class="recent-card">
+
+<img src="${story.image}"
+
+style="width:100%;height:130px;object-fit:cover;border-radius:15px;">
+
+<h3>${story.title}</h3>
+
+<p>${story.category}</p>
+
+<p>Continue from Chapter ${story.chapter}</p>
+
+</a>
+
+`;
+
+});
+
+}
+
+};
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+Reader.loadRecent();
+
+});
