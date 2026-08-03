@@ -915,7 +915,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         // Save progress
-        localStorage.setItem(storyID,index);
+        localStorage.setItem(storyID, index + 1);
 
         // Previous button
         prevBtn.style.visibility =
