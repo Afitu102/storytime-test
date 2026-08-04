@@ -945,18 +945,6 @@ nextBtn.addEventListener("click", () => {
 
 });
 
-prevBtn.addEventListener("click", () => {
-
-    if (currentChapter > 0) {
-
-        currentChapter--;
-
-        showChapter(currentChapter);
-
-    }
-
-});
-    
 
     prevBtn.addEventListener("click",()=>{
 
