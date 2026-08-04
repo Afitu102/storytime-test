@@ -924,7 +924,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-    showChapter(currentChapter);
 // Make sure saved chapter is within range
 currentChapter = Math.max(
     0,
