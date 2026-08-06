@@ -981,8 +981,7 @@ let recent=
 JSON.parse(localStorage.getItem("recentRead"))||[];
 
 recent=recent.filter(x=>x.page!==page);
-
-recent.unshift({
+recent = [{
 
 title,
 
@@ -994,11 +993,9 @@ page,
 
 chapter,
 
-time:Date.now()
+time: Date.now()
 
-});
-
-recent=recent.slice(0,5);
+}];
 
 localStorage.setItem(
 
