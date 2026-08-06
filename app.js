@@ -980,7 +980,6 @@ parseInt(localStorage.getItem(storyID)) || 1;
 let recent=
 JSON.parse(localStorage.getItem("recentRead"))||[];
 
-recent=recent.filter(x=>x.page!==page);
 recent = [{
 
 title,
