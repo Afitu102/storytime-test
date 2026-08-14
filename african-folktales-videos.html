@@ -1,1 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>African Folktales Videos | StoryTime</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<header class="home-header">
+
+<h1 class="home-logo">📖 StoryTime</h1>
+
+<button id="themeToggle" class="theme-btn">
+🌙 Dark Mode
+</button>
+
+<a href="read-african-folktales.html" class="back-btn">
+⬅ Back to African Folktales
+</a>
+
+</header>
+
+
+<main class="home-container">
+
+
+<!-- =========================
+     WELCOME SECTION
+========================= -->
+
+<div class="welcome-box">
+
+<h2>🌍 African Folktales Videos</h2>
+
+<p>
+Watch African folktales, traditional stories and unforgettable African storytelling directly from StoryTime.
+</p>
+
+</div>
+
+
+<!-- =========================
+     YOUTUBE CHANNEL
+========================= -->
+
+<div class="welcome-box">
+
+<h2>🎬 Untold Story Files</h2>
+
+<p>
+Enjoy more African stories on our YouTube channel.
+</p>
+
+<a
+href="https://youtube.com/@untoldstoryfiles-q7z"
+target="_blank"
+rel="noopener noreferrer"
+class="back-btn">
+
+🔴 Subscribe to Our YouTube Channel
+
+</a>
+
+</div>
+
+
+<!-- =========================
+     VIDEO ONE
+========================= -->
+
+<div class="story-content">
+
+<div class="chapter active">
+
+<h2>🎬 She Killed Her Sister for Wealth</h2>
+
+<div class="video-box">
+
+<iframe
+width="100%"
+height="315"
+src="https://www.youtube-nocookie.com/embed/TEHdApDu3ms"
+title="African Folktale Video"
+frameborder="0"
+allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+allowfullscreen>
+</iframe>
+
+</div>
+
+<p>
+Watch this African folktale and enjoy the story from beginning to end.
+</p>
+
+</div>
+
+
+<!-- =========================
+     VIDEO TWO
+========================= -->
+
+<div class="chapter">
+
+<h2>🎭 African Folktale Story</h2>
+
+<div class="video-box">
+
+<iframe
+width="100%"
+height="315"
+src="https://www.youtube-nocookie.com/embed/S8E3TRz6z-Y"
+title="African Folktale Video"
+frameborder="0"
+allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+allowfullscreen>
+</iframe>
+
+</div>
+
+<p>
+Another African story from Untold Story Files.
+</p>
+
+</div>
+
+
+<!-- =========================
+     VIDEO CONTROLS
+========================= -->
+
+<div class="chapter-controls">
+
+<button id="prevChapter">
+⬅ Previous Video
+</button>
+
+<button id="nextChapter">
+Next Video ➡
+</button>
+
+</div>
+
+
+<!-- =========================
+     SUBSCRIBE SECTION
+========================= -->
+
+<div class="welcome-box">
+
+<h2>❤️ Enjoyed the Stories?</h2>
+
+<p>
+Subscribe to Untold Story Files on YouTube and discover more African stories.
+</p>
+
+<a
+href="https://youtube.com/@untoldstoryfiles-q7z"
+target="_blank"
+rel="noopener noreferrer"
+class="back-btn">
+
+🔴 Subscribe on YouTube
+
+</a>
+
+</div>
+
+
+<!-- =========================
+     NAVIGATION
+========================= -->
+
+<div class="story-navigation">
+
+<a
+href="read-african-folktales.html"
+class="back-btn">
+
+📚 Back to African Folktales
+
+</a>
+
+<a
+href="african-folktales-videos.html"
+class="back-btn">
+
+🎬 African Folktales Videos
+
+</a>
+
+</div>
+
+
+</div>
+
+</main>
+
+
+<script src="app.js"></script>
+
+
+<!-- =========================
+     VIDEO JAVASCRIPT
+========================= -->
+
+<script>
+
+const chapters = document.querySelectorAll(".chapter");
+
+const previousButton = document.getElementById("prevChapter");
+
+const nextButton = document.getElementById("nextChapter");
+
+let currentVideo = 0;
+
+
+function showVideo(index) {
+
+chapters.forEach((chapter, i) => {
+
+chapter.classList.remove("active");
+
+if (i === index) {
+
+chapter.classList.add("active");
+
+}
+
+});
+
+}
+
+
+nextButton.addEventListener("click", function() {
+
+if (currentVideo < chapters.length - 1) {
+
+currentVideo++;
+
+showVideo(currentVideo);
+
+}
+
+});
+
+
+previousButton.addEventListener("click", function() {
+
+if (currentVideo > 0) {
+
+currentVideo--;
+
+showVideo(currentVideo);
+
+}
+
+});
+
+
+showVideo(currentVideo);
+
+</script>
+
+
+</body>
+
+</html>
