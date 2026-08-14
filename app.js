@@ -1074,3 +1074,96 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 });
+
+
+
+/* =========================================
+   STORYTIME AFRICAN FOLKTALES VIDEOS
+========================================= */
+
+(function () {
+
+    const videoItems = document.querySelectorAll(".video-item");
+
+    const player = document.getElementById("mainYouTubePlayer");
+
+    const videoTitle = document.getElementById("videoTitle");
+
+    const videoDescription =
+        document.getElementById("videoDescription");
+
+
+    if (!videoItems.length || !player) {
+        return;
+    }
+
+
+    videoItems.forEach(function (item) {
+
+        item.addEventListener("click", function () {
+
+            const videoId =
+                item.getAttribute("data-video-id");
+
+            const title =
+                item.getAttribute("data-video-title");
+
+            const description =
+                item.getAttribute("data-video-description");
+
+
+            if (!videoId) {
+                return;
+            }
+
+
+            /* Change YouTube video */
+
+            player.src =
+                "https://www.youtube-nocookie.com/embed/"
+                + videoId
+                + "?rel=0";
+
+
+            /* Change title */
+
+            if (videoTitle && title) {
+                videoTitle.textContent = title;
+            }
+
+
+            /* Change description */
+
+            if (videoDescription && description) {
+                videoDescription.textContent = description;
+            }
+
+
+            /* Change active video */
+
+            videoItems.forEach(function (video) {
+
+                video.classList.remove("active");
+
+            });
+
+
+            item.classList.add("active");
+
+
+            /* Scroll back to player on phones */
+
+            if (window.innerWidth <= 700) {
+
+                player.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+
+            }
+
+        });
+
+    });
+
+})();
