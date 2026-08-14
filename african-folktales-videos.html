@@ -29,149 +29,226 @@
 </header>
 
 
-<main class="home-container">
+<main class="home-container story-video-page">
 
 
 <!-- =========================
-     WELCOME SECTION
+     VIDEO HERO
 ========================= -->
 
-<div class="welcome-box">
+<section class="video-hero">
 
-<h2>🌍 African Folktales Videos</h2>
+<div class="video-hero-content">
 
-<p>
-Watch African folktales, traditional stories and unforgettable African storytelling directly from StoryTime.
+<p class="video-eyebrow">
+🌍 AFRICAN FOLKTALES
 </p>
 
-</div>
-
-
-<!-- =========================
-     YOUTUBE CHANNEL
-========================= -->
-
-<div class="welcome-box">
-
-<h2>🎬 Untold Story Files</h2>
+<h2>
+Stories From Africa
+</h2>
 
 <p>
-Enjoy more African stories on our YouTube channel.
+Discover unforgettable African folktales, village stories,
+life lessons and traditional storytelling from Untold Story Files.
 </p>
+
+<div class="channel-action">
 
 <a
 href="https://youtube.com/@untoldstoryfiles-q7z"
 target="_blank"
 rel="noopener noreferrer"
-class="back-btn">
+class="youtube-subscribe-btn">
 
-🔴 Subscribe to Our YouTube Channel
+<span>▶</span>
+Subscribe to Untold Story Files
 
 </a>
 
 </div>
 
+</div>
+
+</section>
+
 
 <!-- =========================
-     VIDEO ONE
+     MAIN VIDEO PLAYER
 ========================= -->
 
-<div class="story-content">
+<section class="featured-video-section">
 
-<div class="chapter active">
+<div class="section-heading">
 
-<h2>🎬 She Killed Her Sister for Wealth</h2>
+<p class="video-eyebrow">
+NOW PLAYING
+</p>
 
-<div class="video-box">
+<h2 id="videoTitle">
+She Killed Her Sister for Wealth
+</h2>
+
+<p id="videoDescription">
+An African folktale filled with lessons, choices and consequences.
+</p>
+
+</div>
+
+
+<div class="main-video-wrapper">
 
 <iframe
-width="100%"
-height="315"
-src="https://www.youtube-nocookie.com/embed/TEHdApDu3ms"
-title="African Folktale Video"
-frameborder="0"
+id="mainYouTubePlayer"
+src="https://www.youtube-nocookie.com/embed/TEHdApDu3ms?rel=0"
+title="She Killed Her Sister for Wealth"
 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 allowfullscreen>
 </iframe>
 
 </div>
 
+</section>
+
+
+<!-- =========================
+     VIDEO LIBRARY
+========================= -->
+
+<section class="video-library">
+
+<div class="section-heading">
+
+<p class="video-eyebrow">
+AFRICAN FOLKTALES
+</p>
+
+<h2>More Stories</h2>
+
 <p>
-Watch this African folktale and enjoy the story from beginning to end.
+Choose a story and start watching.
 </p>
 
 </div>
 
 
-<!-- =========================
-     VIDEO TWO
-========================= -->
+<div class="video-list">
 
-<div class="chapter">
 
-<h2>🎭 African Folktale Story</h2>
+<!-- VIDEO ONE -->
 
-<div class="video-box">
+<button
+class="video-item active"
+data-video-id="TEHdApDu3ms"
+data-video-title="She Killed Her Sister for Wealth"
+data-video-description="An African folktale filled with lessons, choices and consequences.">
 
-<iframe
-width="100%"
-height="315"
-src="https://www.youtube-nocookie.com/embed/S8E3TRz6z-Y"
-title="African Folktale Video"
-frameborder="0"
-allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-allowfullscreen>
-</iframe>
+<div class="video-thumbnail">
+
+<img
+src="https://img.youtube.com/vi/TEHdApDu3ms/hqdefault.jpg"
+alt="She Killed Her Sister for Wealth">
+
+<div class="play-icon">
+▶
+</div>
 
 </div>
 
+<div class="video-item-info">
+
+<h3>
+She Killed Her Sister for Wealth
+</h3>
+
 <p>
-Another African story from Untold Story Files.
+Untold Story Files
 </p>
 
 </div>
 
-
-<!-- =========================
-     VIDEO CONTROLS
-========================= -->
-
-<div class="chapter-controls">
-
-<button id="prevChapter">
-⬅ Previous Video
 </button>
 
-<button id="nextChapter">
-Next Video ➡
-</button>
+
+<!-- VIDEO TWO -->
+
+<button
+class="video-item"
+data-video-id="S8E3TRz6z-Y"
+data-video-title="African Folktale Story"
+data-video-description="Another traditional African story from Untold Story Files.">
+
+<div class="video-thumbnail">
+
+<img
+src="https://img.youtube.com/vi/S8E3TRz6z-Y/hqdefault.jpg"
+alt="African Folktale Story">
+
+<div class="play-icon">
+▶
+</div>
 
 </div>
 
+<div class="video-item-info">
 
-<!-- =========================
-     SUBSCRIBE SECTION
-========================= -->
-
-<div class="welcome-box">
-
-<h2>❤️ Enjoyed the Stories?</h2>
+<h3>
+African Folktale Story
+</h3>
 
 <p>
-Subscribe to Untold Story Files on YouTube and discover more African stories.
+Untold Story Files
+</p>
+
+</div>
+
+</button>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     CHANNEL SECTION
+========================= -->
+
+<section class="channel-section">
+
+<div class="channel-icon">
+📖
+</div>
+
+<div class="channel-content">
+
+<p class="video-eyebrow">
+UNTOLD STORY FILES
+</p>
+
+<h2>
+More African Stories Are Waiting
+</h2>
+
+<p>
+Follow the channel for more African folktales,
+traditional stories and unforgettable storytelling.
 </p>
 
 <a
 href="https://youtube.com/@untoldstoryfiles-q7z"
 target="_blank"
 rel="noopener noreferrer"
-class="back-btn">
+class="youtube-subscribe-btn">
 
-🔴 Subscribe on YouTube
+<span>▶</span>
+Visit & Subscribe on YouTube
 
 </a>
 
 </div>
+
+</section>
 
 
 <!-- =========================
@@ -181,7 +258,7 @@ class="back-btn">
 <div class="story-navigation">
 
 <a
-href="read-african-folktales.html"
+href="index.html"
 class="back-btn">
 
 📚 Back to African Folktales
@@ -199,76 +276,14 @@ class="back-btn">
 </div>
 
 
-</div>
-
 </main>
 
 
-<script src="app.js"></script>
-
-
 <!-- =========================
-     VIDEO JAVASCRIPT
+     EXISTING APP JAVASCRIPT
 ========================= -->
 
-<script>
-
-const chapters = document.querySelectorAll(".chapter");
-
-const previousButton = document.getElementById("prevChapter");
-
-const nextButton = document.getElementById("nextChapter");
-
-let currentVideo = 0;
-
-
-function showVideo(index) {
-
-chapters.forEach((chapter, i) => {
-
-chapter.classList.remove("active");
-
-if (i === index) {
-
-chapter.classList.add("active");
-
-}
-
-});
-
-}
-
-
-nextButton.addEventListener("click", function() {
-
-if (currentVideo < chapters.length - 1) {
-
-currentVideo++;
-
-showVideo(currentVideo);
-
-}
-
-});
-
-
-previousButton.addEventListener("click", function() {
-
-if (currentVideo > 0) {
-
-currentVideo--;
-
-showVideo(currentVideo);
-
-}
-
-});
-
-
-showVideo(currentVideo);
-
-</script>
-
+<script src="app.js"></script>
 
 </body>
 
