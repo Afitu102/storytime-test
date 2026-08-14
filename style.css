@@ -837,270 +837,536 @@ box-shadow:0 8px 25px rgba(0,0,0,.25);
 }
 
 
-/* =========================================
-   YOUTUBE SUBSCRIBE BUTTON
-========================================= */
+    
+/* =====================================================
+   STORYTIME — AFRICAN FOLKTALES VIDEO PAGE
+   PREMIUM VIDEO DESIGN
+===================================================== */
 
-.youtube-subscribe-btn {
+.african-video-page {
+    background: #08090d;
+    color: #f5f1e8;
+}
+
+
+/* =====================================================
+   MAIN VIDEO PAGE CONTAINER
+===================================================== */
+
+.african-video-page .video-page-container {
+    width: 100%;
+    max-width: 1150px;
+    margin: 0 auto;
+    padding: 30px 20px 80px;
+}
+
+
+/* =====================================================
+   HERO SECTION
+===================================================== */
+
+.african-video-page .video-page-hero {
+    position: relative;
+    overflow: hidden;
+
+    margin-bottom: 60px;
+    padding: 85px 25px;
+
+    border-radius: 30px;
+
+    background:
+        radial-gradient(
+            circle at 85% 15%,
+            rgba(212, 175, 55, 0.20),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 10% 90%,
+            rgba(139, 92, 40, 0.15),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #17130c,
+            #090a0f 65%,
+            #11151c
+        );
+
+    border: 1px solid rgba(212, 175, 55, 0.25);
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.45);
+}
+
+
+.african-video-page .video-hero-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+
+.african-video-page .video-hero-label {
+    margin-bottom: 16px;
+
+    color: #d4af37;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+
+.african-video-page .video-page-hero h2 {
+    margin: 0 0 20px;
+
+    color: #ffffff !important;
+
+    font-size: clamp(36px, 7vw, 65px);
+
+    line-height: 1.05;
+}
+
+
+.african-video-page .video-page-hero p {
+    max-width: 680px;
+
+    margin: 0 auto 32px;
+
+    color: #d7d4cc !important;
+
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+
+/* =====================================================
+   YOUTUBE SUBSCRIBE BUTTON
+===================================================== */
+
+.african-video-page .youtube-subscribe {
     display: inline-flex;
+
     align-items: center;
     justify-content: center;
+
     gap: 10px;
-    padding: 14px 22px;
+
+    min-height: 50px;
+
+    padding: 14px 24px;
+
     border-radius: 12px;
-    background: #e62117;
-    color: white;
-    text-decoration: none;
-    font-weight: 700;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    background: #ff0000;
+
+    color: #ffffff !important;
+
+    text-decoration: none !important;
+
+    font-size: 14px;
+    font-weight: 800;
+
+    box-shadow:
+        0 10px 30px rgba(255, 0, 0, 0.20);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
-.youtube-subscribe-btn span {
-    font-size: 16px;
+
+.african-video-page .youtube-subscribe:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 15px 35px rgba(255, 0, 0, 0.30);
 }
 
-.youtube-subscribe-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(230, 33, 23, 0.3);
+
+.african-video-page .youtube-subscribe span {
+    color: #ffffff !important;
+    font-size: 15px;
 }
 
 
-/* =========================================
-   SECTION HEADING
-========================================= */
+/* =====================================================
+   VIDEO SECTION
+===================================================== */
 
-.section-heading {
+.african-video-page .video-section {
+    width: 100%;
+    margin-bottom: 70px;
+}
+
+
+/* =====================================================
+   VIDEO SECTION HEADING
+===================================================== */
+
+.african-video-page .video-section-heading {
     margin-bottom: 22px;
 }
 
-.section-heading h2 {
-    margin: 0 0 8px;
-    font-size: clamp(25px, 4vw, 38px);
-}
 
-.section-heading p:not(.video-eyebrow) {
-    margin: 0;
-    line-height: 1.7;
-    opacity: 0.75;
-}
-
-
-/* =========================================
-   MAIN YOUTUBE PLAYER
-========================================= */
-
-.main-video-wrapper {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    overflow: hidden;
-    border-radius: 22px;
-    background: #000;
-    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
-    margin-bottom: 55px;
-}
-
-.main-video-wrapper iframe {
+.african-video-page .video-section-heading span {
     display: block;
+
+    margin-bottom: 9px;
+
+    color: #d4af37 !important;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+}
+
+
+.african-video-page .video-section-heading h2 {
+    margin: 0 0 9px;
+
+    color: #ffffff !important;
+
+    font-size: clamp(25px, 4vw, 38px);
+
+    line-height: 1.2;
+}
+
+
+.african-video-page .video-section-heading p {
+    margin: 0;
+
+    color: #aaa7a0 !important;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+}
+
+
+/* =====================================================
+   YOUTUBE VIDEO PLAYER
+   TRUE 16:9 RATIO
+===================================================== */
+
+.african-video-page .youtube-player {
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio: 16 / 9;
+
+    overflow: hidden;
+
+    background: #000000;
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.45);
+}
+
+
+.african-video-page .youtube-player iframe {
+    position: absolute;
+
+    inset: 0;
+
+    display: block;
+
     width: 100%;
     height: 100%;
+
     border: 0;
 }
 
 
-/* =========================================
-   VIDEO LIBRARY
-========================================= */
+/* =====================================================
+   MORE STORIES SECTION
+===================================================== */
 
-.video-library {
-    margin-bottom: 55px;
-}
-
-.video-list {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-}
-
-.video-item {
-    display: block;
-    width: 100%;
-    padding: 0;
-    overflow: hidden;
-    text-align: left;
-    cursor: pointer;
-
-    border-radius: 18px;
-    border: 1px solid rgba(128, 128, 128, 0.18);
-
-    background: transparent;
-
-    transition:
-        transform 0.2s ease,
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-.video-item:hover {
-    transform: translateY(-4px);
-}
-
-.video-item.active {
-    border-color: rgba(212, 175, 55, 0.8);
-    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.18);
-}
-
-
-/* =========================================
-   VIDEO THUMBNAIL
-========================================= */
-
-.video-thumbnail {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    overflow: hidden;
-    background: #111;
-}
-
-.video-thumbnail img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-
-    transition: transform 0.3s ease;
-}
-
-.video-item:hover .video-thumbnail img {
-    transform: scale(1.04);
-}
-
-
-/* =========================================
-   PLAY ICON
-========================================= */
-
-.play-icon {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-
-    transform: translate(-50%, -50%);
-
-    width: 55px;
-    height: 55px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background: rgba(0, 0, 0, 0.75);
-    color: white;
-
-    font-size: 20px;
-}
-
-
-/* =========================================
-   VIDEO INFORMATION
-========================================= */
-
-.video-item-info {
-    padding: 17px 18px 19px;
-}
-
-.video-item-info h3 {
-    margin: 0 0 7px;
-    font-size: 17px;
-    line-height: 1.4;
-}
-
-.video-item-info p {
-    margin: 0;
-    font-size: 13px;
-    opacity: 0.65;
-}
-
-
-/* =========================================
-   CHANNEL SECTION
-========================================= */
-
-.channel-section {
-    display: flex;
-    align-items: center;
-    gap: 25px;
-
-    margin: 50px 0;
-
-    padding: 30px;
+.african-video-page .video-coming-section {
+    padding: 38px;
 
     border-radius: 22px;
 
-    border: 1px solid rgba(212, 175, 55, 0.25);
+    background:
+        linear-gradient(
+            135deg,
+            #111318,
+            #0c0e13
+        );
 
-    background: rgba(128, 128, 128, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.channel-icon {
+
+.african-video-page .video-coming-section h2 {
+    color: #ffffff !important;
+}
+
+
+/* =====================================================
+   YOUTUBE CHANNEL SECTION
+===================================================== */
+
+.african-video-page .youtube-channel-section {
+    display: flex;
+
+    align-items: center;
+
+    gap: 25px;
+
+    margin: 70px 0;
+
+    padding: 35px;
+
+    border-radius: 24px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #171717,
+            #0c0e12
+        );
+
+    border: 1px solid rgba(212, 175, 55, 0.22);
+
+    box-shadow:
+        0 15px 45px rgba(0, 0, 0, 0.25);
+}
+
+
+/* =====================================================
+   CHANNEL ICON
+===================================================== */
+
+.african-video-page .channel-symbol {
     flex-shrink: 0;
 
-    width: 70px;
-    height: 70px;
+    width: 75px;
+    height: 75px;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
-    border-radius: 20px;
+    border-radius: 22px;
 
-    font-size: 32px;
+    background: #ff0000;
 
-    background: rgba(212, 175, 55, 0.12);
+    color: #ffffff !important;
+
+    font-size: 28px;
+
+    box-shadow:
+        0 10px 30px rgba(255, 0, 0, 0.20);
 }
 
-.channel-content h2 {
-    margin: 0 0 8px;
+
+/* =====================================================
+   CHANNEL TEXT
+===================================================== */
+
+.african-video-page .channel-text span {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #d4af37 !important;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 3px;
 }
 
-.channel-content p:not(.video-eyebrow) {
+
+.african-video-page .channel-text h2 {
+    margin: 0 0 9px;
+
+    color: #ffffff !important;
+
+    font-size: 30px;
+}
+
+
+.african-video-page .channel-text p {
     margin: 0 0 20px;
+
+    color: #aaa7a0 !important;
+
     line-height: 1.7;
-    opacity: 0.75;
 }
 
 
-/* =========================================
-   MOBILE
-========================================= */
+/* =====================================================
+   VIDEO PAGE NAVIGATION
+===================================================== */
+
+.african-video-page .video-page-navigation {
+    display: flex;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    margin-top: 35px;
+}
+
+
+.african-video-page .video-nav-button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 46px;
+
+    padding: 12px 19px;
+
+    border-radius: 12px;
+
+    background: #17191f;
+
+    border: 1px solid rgba(255, 255, 255, 0.10);
+
+    color: #f5f1e8 !important;
+
+    text-decoration: none !important;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.african-video-page .video-nav-button:hover {
+    background: #23262e;
+
+    transform: translateY(-2px);
+}
+
+
+/* =====================================================
+   MOBILE DESIGN
+===================================================== */
 
 @media (max-width: 700px) {
 
-    .video-hero {
-        padding: 50px 20px;
+    .african-video-page .video-page-container {
+        padding:
+            18px 12px 55px;
+    }
+
+
+    .african-video-page .video-page-hero {
+        padding:
+            55px 18px;
+
+        margin-bottom: 45px;
+
         border-radius: 22px;
     }
 
-    .video-list {
-        grid-template-columns: 1fr;
+
+    .african-video-page .video-page-hero h2 {
+        font-size: 38px;
     }
 
-    .main-video-wrapper {
-        border-radius: 14px;
-        margin-left: -1px;
-        width: calc(100% + 2px);
+
+    .african-video-page .video-page-hero p {
+        font-size: 15px;
     }
 
-    .channel-section {
+
+    /*
+       Keep YouTube video wide on phone
+    */
+
+    .african-video-page .youtube-player {
+        width: 100%;
+
+        aspect-ratio: 16 / 9;
+
+        border-radius: 12px;
+    }
+
+
+    .african-video-page .video-section {
+        margin-bottom: 50px;
+    }
+
+
+    .african-video-page .video-section-heading h2 {
+        font-size: 27px;
+    }
+
+
+    .african-video-page .youtube-channel-section {
         flex-direction: column;
+
         align-items: flex-start;
+
         padding: 25px;
+
+        margin: 50px 0;
+
+        border-radius: 20px;
     }
 
-    .youtube-subscribe-btn {
+
+    .african-video-page .channel-text h2 {
+        font-size: 25px;
+    }
+
+
+    .african-video-page .youtube-subscribe {
+        width: 100%;
+    }
+
+
+    .african-video-page .video-page-navigation {
+        flex-direction: column;
+    }
+
+
+    .african-video-page .video-nav-button {
         width: 100%;
     }
 
 }
+
+
+/* =====================================================
+   VERY SMALL PHONES
+===================================================== */
+
+@media (max-width: 380px) {
+
+    .african-video-page .video-page-hero h2 {
+        font-size: 33px;
+    }
+
+
+    .african-video-page .video-page-hero {
+        padding: 45px 16px;
+    }
+
+
+    .african-video-page .video-section-heading h2 {
+        font-size: 24px;
+    }
+
+   }
