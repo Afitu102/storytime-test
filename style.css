@@ -755,12 +755,12 @@ box-shadow:0 8px 25px rgba(0,0,0,.25);
 /* =====================================================
    STORYTIME
    AFRICAN FOLKTALES VIDEO PAGE
-   CLEAN NETFLIX-STYLE DESIGN
+   MATCHES STORYTIME READ-STORY THEME
 ===================================================== */
 
 
 /* =====================================================
-   BASIC RESET
+   RESET
 ===================================================== */
 
 * {
@@ -769,23 +769,36 @@ box-shadow:0 8px 25px rgba(0,0,0,.25);
     padding: 0;
 }
 
-
 html {
     scroll-behavior: smooth;
 }
 
-
 body {
     min-height: 100vh;
 
-    background: #ffffff;
-
-    color: #111111;
+    background: #111827;
+    color: #ffffff;
 
     font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
+}
+
+
+/* =====================================================
+   LIGHT MODE
+   YOUR EXISTING JS SHOULD ADD:
+   body.light-mode
+===================================================== */
+
+body.light-mode {
+    background: #f5f5f5;
+    color: #111827;
 }
 
 
@@ -810,63 +823,102 @@ body {
 
     justify-content: space-between;
 
-    padding: 14px 24px;
+    padding: 13px 24px;
 
+    background: rgba(17, 24, 39, 0.96);
+
+    border-bottom:
+        1px solid #2d3748;
+
+    backdrop-filter: blur(14px);
+
+    -webkit-backdrop-filter: blur(14px);
+}
+
+body.light-mode .site-header {
     background: rgba(255, 255, 255, 0.96);
 
     border-bottom:
-        1px solid #e5e5e5;
-
-    backdrop-filter: blur(12px);
-
-    -webkit-backdrop-filter: blur(12px);
+        1px solid #dddddd;
 }
 
 
-.site-logo {
-    color: #111111;
+/* =====================================================
+   LOGO
+===================================================== */
 
-    font-size: 20px;
+.site-logo {
+    color: #ffffff;
+
+    font-size: 21px;
 
     font-weight: 800;
 
     letter-spacing: -0.5px;
 }
 
+body.light-mode .site-logo {
+    color: #111827;
+}
+
+
+/* =====================================================
+   HEADER ACTIONS
+===================================================== */
 
 .header-actions {
     display: flex;
 
     align-items: center;
 
-    gap: 9px;
+    gap: 8px;
 }
 
 
 /* =====================================================
-   THEME BUTTON
-   NORMAL WEBSITE STYLE
+   EXISTING THEME BUTTON
+   CSS ONLY — JS ALREADY EXISTS
 ===================================================== */
 
 .theme-btn {
     min-height: 40px;
 
-    padding: 9px 15px;
+    padding:
+        9px 16px;
 
-    border-radius: 8px;
+    border: none;
 
-    background: #f5f5f5;
+    border-radius: 9px;
 
-    border:
-        1px solid #dddddd;
+    background: #2563eb;
 
-    color: #111111;
+    color: #ffffff;
 
-    cursor: pointer;
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 
     font-size: 13px;
 
     font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 14px
+        rgba(37, 99, 235, 0.25);
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.theme-btn:hover {
+    background: #1d4ed8;
+
+    transform:
+        translateY(-1px);
 }
 
 
@@ -883,35 +935,57 @@ body {
 
     min-height: 40px;
 
-    padding: 9px 15px;
+    padding:
+        9px 15px;
 
-    border-radius: 8px;
+    border-radius: 9px;
 
-    background: #f5f5f5;
+    background: #202938;
 
     border:
-        1px solid #dddddd;
+        1px solid #374151;
 
-    color: #111111;
+    color: #ffffff;
 
     text-decoration: none;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 
     font-size: 13px;
 
     font-weight: 700;
 
     transition:
-        background 0.2s ease;
+        background 0.2s ease,
+        transform 0.2s ease;
 }
 
-
 .back-button:hover {
-    background: #e9e9e9;
+    background: #293548;
+
+    transform:
+        translateY(-1px);
+}
+
+body.light-mode .back-button {
+    background: #ffffff;
+
+    border:
+        1px solid #dddddd;
+
+    color: #111827;
+}
+
+body.light-mode .back-button:hover {
+    background: #eeeeee;
 }
 
 
 /* =====================================================
-   VIDEO PAGE
+   MAIN VIDEO PAGE
 ===================================================== */
 
 .video-page {
@@ -922,7 +996,7 @@ body {
     margin: 0 auto;
 
     padding:
-        30px 22px 110px;
+        28px 22px 115px;
 }
 
 
@@ -932,43 +1006,57 @@ body {
 
 .page-intro {
     padding:
-        15px 0 32px;
+        14px 0 30px;
 }
 
-
 .section-label {
-    margin-bottom: 9px;
+    margin-bottom: 8px;
 
-    color: #b8860b;
+    color: #f4b942;
 
-    font-size: 11px;
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    font-size: 10px;
 
     font-weight: 800;
 
     letter-spacing: 3px;
+
+    text-transform: uppercase;
 }
 
-
 .page-intro h1 {
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 
-    color: #111111;
+    color: #ffffff;
 
     font-size:
         clamp(32px, 5vw, 48px);
 
     line-height: 1.08;
+
+    font-weight: 800;
 }
 
+body.light-mode .page-intro h1 {
+    color: #111827;
+}
 
 .page-intro p {
-    max-width: 650px;
+    max-width: 700px;
 
-    color: #555555;
+    color: #cbd5e1;
 
-    font-size: 14px;
+    font-size: 15px;
 
     line-height: 1.7;
+}
+
+body.light-mode .page-intro p {
+    color: #4b5563;
 }
 
 
@@ -978,6 +1066,12 @@ body {
 
 .video-library {
     width: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 34px;
 }
 
 
@@ -988,35 +1082,44 @@ body {
 .video-card {
     width: 100%;
 
-    margin-bottom: 45px;
-
-    cursor: pointer;
-
-    background: #ffffff;
-
-    border:
-        1px solid #e5e5e5;
-
-    border-radius: 14px;
-
     overflow: hidden;
 
+    background: #202938;
+
+    border:
+        1px solid #303b4d;
+
+    border-radius: 16px;
+
     box-shadow:
-        0 5px 20px
-        rgba(0, 0, 0, 0.07);
+        0 8px 25px
+        rgba(0, 0, 0, 0.18);
+
+    cursor: pointer;
 
     transition:
         transform 0.25s ease,
         box-shadow 0.25s ease;
 }
 
-
 .video-card:hover {
-    transform: translateY(-3px);
+    transform:
+        translateY(-3px);
 
     box-shadow:
-        0 12px 30px
-        rgba(0, 0, 0, 0.12);
+        0 14px 35px
+        rgba(0, 0, 0, 0.25);
+}
+
+body.light-mode .video-card {
+    background: #ffffff;
+
+    border:
+        1px solid #dddddd;
+
+    box-shadow:
+        0 8px 25px
+        rgba(0, 0, 0, 0.07);
 }
 
 
@@ -1036,7 +1139,6 @@ body {
     background: #000000;
 }
 
-
 .video-thumbnail img {
     position: absolute;
 
@@ -1046,23 +1148,23 @@ body {
 
     height: 100%;
 
-    object-fit: cover;
-
     display: block;
 
-    transition:
-        transform 0.4s ease;
-}
+    object-fit: cover;
 
+    transition:
+        transform 0.45s ease;
+}
 
 .video-card:hover
 .video-thumbnail img {
-    transform: scale(1.035);
+    transform:
+        scale(1.035);
 }
 
 
 /* =====================================================
-   THUMBNAIL GRADIENT
+   THUMBNAIL OVERLAY
 ===================================================== */
 
 .thumbnail-dark {
@@ -1073,8 +1175,8 @@ body {
     background:
         linear-gradient(
             to top,
-            rgba(0, 0, 0, 0.55),
-            rgba(0, 0, 0, 0.02) 65%
+            rgba(0, 0, 0, 0.60),
+            rgba(0, 0, 0, 0.04) 65%
         );
 
     pointer-events: none;
@@ -1095,9 +1197,9 @@ body {
     transform:
         translate(-50%, -50%);
 
-    width: 68px;
+    width: 66px;
 
-    height: 68px;
+    height: 66px;
 
     display: flex;
 
@@ -1111,25 +1213,31 @@ body {
 
     border-radius: 50%;
 
-    background: #ffffff;
+    background: #2563eb;
 
-    color: #111111;
+    color: #ffffff;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 
     font-size: 23px;
 
     cursor: pointer;
 
     box-shadow:
-        0 8px 30px
+        0 8px 28px
         rgba(0, 0, 0, 0.45);
 
     transition:
-        transform 0.2s ease;
+        transform 0.2s ease,
+        background 0.2s ease;
 }
 
+.play-button:hover {
+    background: #1d4ed8;
 
-.video-card:hover
-.play-button {
     transform:
         translate(-50%, -50%)
         scale(1.08);
@@ -1142,50 +1250,68 @@ body {
 
 .video-details {
     padding:
-        15px 17px 18px;
+        16px 18px 19px;
 
-    background: #ffffff;
+    background: #202938;
 }
 
+body.light-mode .video-details {
+    background: #ffffff;
+}
 
 .video-category {
     margin-bottom: 6px;
 
-    color: #b8860b;
+    color: #f4b942;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 
     font-size: 10px;
 
     font-weight: 800;
 
     letter-spacing: 2px;
-}
 
+    text-transform: uppercase;
+}
 
 .video-details h2 {
     margin-bottom: 7px;
 
-    color: #111111;
+    color: #ffffff;
 
     font-size:
         clamp(19px, 3vw, 25px);
 
     line-height: 1.3;
+
+    font-weight: 800;
 }
 
+body.light-mode .video-details h2 {
+    color: #111827;
+}
 
 .video-details p {
-    max-width: 700px;
+    max-width: 720px;
 
-    color: #555555;
+    color: #cbd5e1;
 
-    font-size: 13px;
+    font-size: 14px;
 
     line-height: 1.65;
 }
 
+body.light-mode .video-details p {
+    color: #4b5563;
+}
+
 
 /* =====================================================
-   ACTIVE YOUTUBE PLAYER
+   YOUTUBE PLAYER
 ===================================================== */
 
 .youtube-player-container {
@@ -1200,15 +1326,14 @@ body {
     background: #000000;
 }
 
-
 .youtube-player-container iframe {
     width: 100%;
 
     height: 100%;
 
-    border: none;
-
     display: block;
+
+    border: none;
 }
 
 
@@ -1223,18 +1348,24 @@ body {
 
     gap: 18px;
 
-    margin-top: 15px;
+    margin-top: 8px;
 
-    padding: 24px;
+    padding: 23px;
 
-    border-radius: 14px;
-
-    background: #f7f7f7;
+    background: #202938;
 
     border:
-        1px solid #e3e3e3;
+        1px solid #303b4d;
+
+    border-radius: 16px;
 }
 
+body.light-mode .channel-section {
+    background: #ffffff;
+
+    border:
+        1px solid #dddddd;
+}
 
 .channel-icon {
     flex-shrink: 0;
@@ -1249,44 +1380,63 @@ body {
 
     justify-content: center;
 
-    border-radius: 14px;
+    border-radius: 15px;
 
     background: #e50914;
 
     color: #ffffff;
 
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
     font-size: 21px;
 }
-
 
 .channel-label {
     margin-bottom: 4px;
 
-    color: #b8860b;
+    color: #f4b942;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 
     font-size: 9px;
 
     font-weight: 800;
 
     letter-spacing: 2px;
-}
 
+    text-transform: uppercase;
+}
 
 .channel-content h2 {
-    margin-bottom: 4px;
+    margin-bottom: 5px;
 
-    color: #111111;
+    color: #ffffff;
 
     font-size: 21px;
+
+    font-weight: 800;
 }
 
+body.light-mode .channel-content h2 {
+    color: #111827;
+}
 
 .channel-content p {
-    color: #555555;
+    color: #cbd5e1;
 
-    font-size: 13px;
+    font-size: 14px;
 
-    line-height: 1.5;
+    line-height: 1.55;
+}
+
+body.light-mode .channel-content p {
+    color: #4b5563;
 }
 
 
@@ -1311,9 +1461,9 @@ body {
 
     gap: 8px;
 
-    min-width: 125px;
+    min-width: 128px;
 
-    min-height: 45px;
+    min-height: 46px;
 
     padding:
         11px 17px;
@@ -1326,30 +1476,52 @@ body {
 
     text-decoration: none;
 
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
     font-size: 13px;
 
     font-weight: 800;
 
     box-shadow:
         0 8px 25px
-        rgba(0, 0, 0, 0.25);
+        rgba(0, 0, 0, 0.30);
 
     transition:
         transform 0.2s ease,
         background 0.2s ease;
 }
 
-
 .subscribe-button:hover {
+    background: #c80712;
+
     transform:
         translateY(-3px);
-
-    background: #c80712;
 }
-
 
 .subscribe-button span {
     color: #ffffff;
+}
+
+
+/* =====================================================
+   STORY NAVIGATION
+===================================================== */
+
+.story-navigation {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 35px;
 }
 
 
@@ -1366,26 +1538,22 @@ body {
             11px 12px;
     }
 
-
     .site-logo {
         font-size: 17px;
     }
-
 
     .header-actions {
         gap: 6px;
     }
 
-
     .theme-btn {
         min-height: 37px;
 
         padding:
-            8px 10px;
+            8px 11px;
 
         font-size: 11px;
     }
-
 
     .back-button {
         min-height: 37px;
@@ -1396,67 +1564,60 @@ body {
         font-size: 12px;
     }
 
-
     .video-page {
         padding:
-            18px 9px 100px;
+            18px 10px 105px;
     }
-
 
     .page-intro {
         padding:
             12px 3px 25px;
     }
 
-
     .page-intro h1 {
         font-size: 31px;
     }
-
 
     .page-intro p {
         font-size: 13px;
     }
 
-
-    .video-card {
-        margin-bottom: 35px;
-
-        border-radius: 11px;
+    .video-library {
+        gap: 27px;
     }
 
+    .video-card {
+        border-radius: 12px;
+    }
 
     .play-button {
-        width: 56px;
+        width: 55px;
 
-        height: 56px;
+        height: 55px;
 
         font-size: 19px;
     }
 
-
     .video-details {
         padding:
-            12px 13px 15px;
+            13px 14px 16px;
     }
-
 
     .video-details h2 {
         font-size: 19px;
     }
 
-
     .video-details p {
         font-size: 12px;
     }
-
 
     .channel-section {
         padding: 18px;
 
         gap: 13px;
-    }
 
+        border-radius: 13px;
+    }
 
     .channel-icon {
         width: 50px;
@@ -1466,25 +1627,32 @@ body {
         border-radius: 13px;
     }
 
-
     .channel-content h2 {
         font-size: 18px;
     }
 
+    .channel-content p {
+        font-size: 12px;
+    }
 
     .subscribe-button {
         right: 12px;
 
         bottom: 13px;
 
-        min-width: 112px;
+        min-width: 115px;
 
         min-height: 43px;
 
         padding:
             10px 14px;
+
+        font-size: 12px;
     }
 
+    .story-navigation {
+        margin-top: 27px;
+    }
 }
 
 
@@ -1500,15 +1668,16 @@ body {
         padding-right: 7px;
     }
 
-
     .page-intro h1 {
         font-size: 28px;
     }
 
+    .video-details h2 {
+        font-size: 18px;
+    }
 }
 
 
-    
+   
 
 
-        
