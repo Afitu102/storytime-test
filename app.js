@@ -1080,7 +1080,384 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+/* =====================================================
+   STORYTIME APP.JS
+   PREMIUM AFRICAN FOLKTALES VIDEO SYSTEM
+===================================================== */
 
+
+/* =====================================
+   THEME
+===================================== */
+
+const themeToggle =
+    document.getElementById("themeToggle");
+
+
+if (themeToggle) {
+
+    themeToggle.addEventListener(
+        "click",
+        function () {
+
+            document.body.classList.toggle(
+                "light-mode"
+            );
+
+
+            if (
+                document.body.classList.contains(
+                    "light-mode"
+                )
+            ) {
+
+                themeToggle.textContent = "☀️";
+
+            } else {
+
+                themeToggle.textContent = "🌙";
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =====================================
+   YOUTUBE VIDEO SYSTEM
+===================================== */
+
+(function () {
+
+
+    const cards =
+        document.querySelectorAll(
+            ".video-card"
+        );
+
+
+    if (!cards.length) {
+        return;
+    }
+
+
+    let activePlayer = null;
+
+    let activeCard = null;
+
+    let youtubeReady = false;
+
+    let pendingCard = null;
+
+
+    /* =================================
+       LOAD YOUTUBE API
+    ================================= */
+
+    function loadYouTubeAPI() {
+
+
+        if (
+            window.YT &&
+            window.YT.Player
+        ) {
+
+            youtubeReady = true;
+
+            return;
+
+        }
+
+
+        if (
+            document.getElementById(
+                "youtube-iframe-api"
+            )
+        ) {
+
+            return;
+
+        }
+
+
+        const script =
+            document.createElement(
+                "script"
+            );
+
+
+        script.id =
+            "youtube-iframe-api";
+
+
+        script.src =
+            "https://www.youtube.com/iframe_api";
+
+
+        document.head.appendChild(
+            script
+        );
+
+
+        window.onYouTubeIframeAPIReady =
+            function () {
+
+                youtubeReady = true;
+
+
+                if (pendingCard) {
+
+                    playCard(
+                        pendingCard
+                    );
+
+                    pendingCard = null;
+
+                }
+
+            };
+
+    }
+
+
+    /* =================================
+       STOP CURRENT VIDEO
+    ================================= */
+
+    function stopCurrentVideo() {
+
+
+        if (
+            activePlayer &&
+            typeof activePlayer.stopVideo ===
+            "function"
+        ) {
+
+            try {
+
+                activePlayer.stopVideo();
+
+            } catch (error) {
+
+                console.log(
+                    "Unable to stop previous video."
+                );
+
+            }
+
+        }
+
+
+        activePlayer = null;
+
+        activeCard = null;
+
+    }
+
+
+    /* =================================
+       CREATE YOUTUBE PLAYER
+    ================================= */
+
+    function createPlayer(card) {
+
+
+        const videoId =
+            card.getAttribute(
+                "data-video-id"
+            );
+
+
+        const thumbnail =
+            card.querySelector(
+                ".video-thumbnail"
+            );
+
+
+        if (
+            !videoId ||
+            !thumbnail
+        ) {
+
+            return;
+
+        }
+
+
+        /*
+           Stop previous video first
+        */
+
+        stopCurrentVideo();
+
+
+        /*
+           Clear thumbnail
+        */
+
+        thumbnail.innerHTML = "";
+
+
+        /*
+           Create player wrapper
+        */
+
+        const playerWrapper =
+            document.createElement(
+                "div"
+            );
+
+
+        playerWrapper.className =
+            "youtube-player-container";
+
+
+        thumbnail.appendChild(
+            playerWrapper
+        );
+
+
+        /*
+           Create YouTube player
+        */
+
+        const player =
+            new YT.Player(
+                playerWrapper,
+                {
+
+                    width: "100%",
+
+                    height: "100%",
+
+
+                    videoId: videoId,
+
+
+                    playerVars: {
+
+                        autoplay: 1,
+
+                        controls: 1,
+
+                        rel: 0,
+
+                        playsinline: 1,
+
+                        modestbranding: 1
+
+                    },
+
+
+                    events: {
+
+                        onStateChange:
+                            function (event) {
+
+                                /*
+                                   If this video starts
+                                   playing, make sure
+                                   previous one is stopped.
+                                */
+
+                                if (
+                                    event.data ===
+                                    YT.PlayerState.PLAYING
+                                ) {
+
+                                    if (
+                                        activePlayer &&
+                                        activePlayer !==
+                                        event.target
+                                    ) {
+
+                                        try {
+
+                                            activePlayer.stopVideo();
+
+                                        } catch (error) {}
+
+                                    }
+
+
+                                    activePlayer =
+                                        event.target;
+
+                                    activeCard =
+                                        card;
+
+                                }
+
+                            }
+
+                    }
+
+                }
+            );
+
+
+        activePlayer = player;
+
+        activeCard = card;
+
+    }
+
+
+    /* =================================
+       PLAY SELECTED CARD
+    ================================= */
+
+    function playCard(card) {
+
+
+        if (!youtubeReady) {
+
+            pendingCard = card;
+
+            loadYouTubeAPI();
+
+            return;
+
+        }
+
+
+        createPlayer(card);
+
+    }
+
+
+    /* =================================
+       CARD CLICK
+    ================================= */
+
+    cards.forEach(
+        function (card) {
+
+
+            card.addEventListener(
+                "click",
+                function () {
+
+                    playCard(card);
+
+                }
+            );
+
+
+        }
+    );
+
+
+    /* =================================
+       LOAD YOUTUBE API
+    ================================= */
+
+    loadYouTubeAPI();
+
+
+})();
 
 
 
