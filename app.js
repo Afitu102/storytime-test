@@ -1080,390 +1080,212 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+                
 /* =====================================================
-   STORYTIME APP.JS
-   PREMIUM AFRICAN FOLKTALES VIDEO SYSTEM
+   STORYTIME
+   YOUTUBE VIDEO FUNCTIONALITY
+   NO THEME CODE HERE
 ===================================================== */
 
+document.addEventListener("DOMContentLoaded", function () {
 
-/* =====================================
-   THEME
-===================================== */
+    /* ================================================
+       GET ALL VIDEO CARDS
+    ================================================ */
 
-const themeToggle =
-    document.getElementById("themeToggle");
+    const videoCards =
+        document.querySelectorAll(".video-card");
 
 
-if (themeToggle) {
+    /* ================================================
+       OPEN YOUTUBE VIDEO
+    ================================================ */
 
-    themeToggle.addEventListener(
-        "click",
-        function () {
+    videoCards.forEach(function (card) {
 
-            document.body.classList.toggle(
-                "light-mode"
-            );
+        card.addEventListener("click", function () {
 
+            /* Stop every other video first */
+            stopOtherVideos(card);
 
-            if (
-                document.body.classList.contains(
-                    "light-mode"
-                )
-            ) {
 
-                themeToggle.textContent = "☀️";
-
-            } else {
-
-                themeToggle.textContent = "🌙";
-
-            }
-
-        }
-    );
-
-}
-
-
-/* =====================================
-   YOUTUBE VIDEO SYSTEM
-===================================== */
-
-(function () {
-
-
-    const cards =
-        document.querySelectorAll(
-            ".video-card"
-        );
-
-
-    if (!cards.length) {
-        return;
-    }
-
-
-    let activePlayer = null;
-
-    let activeCard = null;
-
-    let youtubeReady = false;
-
-    let pendingCard = null;
-
-
-    /* =================================
-       LOAD YOUTUBE API
-    ================================= */
-
-    function loadYouTubeAPI() {
-
-
-        if (
-            window.YT &&
-            window.YT.Player
-        ) {
-
-            youtubeReady = true;
-
-            return;
-
-        }
-
-
-        if (
-            document.getElementById(
-                "youtube-iframe-api"
-            )
-        ) {
-
-            return;
-
-        }
-
-
-        const script =
-            document.createElement(
-                "script"
-            );
-
-
-        script.id =
-            "youtube-iframe-api";
-
-
-        script.src =
-            "https://www.youtube.com/iframe_api";
-
-
-        document.head.appendChild(
-            script
-        );
-
-
-        window.onYouTubeIframeAPIReady =
-            function () {
-
-                youtubeReady = true;
-
-
-                if (pendingCard) {
-
-                    playCard(
-                        pendingCard
-                    );
-
-                    pendingCard = null;
-
-                }
-
-            };
-
-    }
-
-
-    /* =================================
-       STOP CURRENT VIDEO
-    ================================= */
-
-    function stopCurrentVideo() {
-
-
-        if (
-            activePlayer &&
-            typeof activePlayer.stopVideo ===
-            "function"
-        ) {
-
-            try {
-
-                activePlayer.stopVideo();
-
-            } catch (error) {
-
-                console.log(
-                    "Unable to stop previous video."
+            /* Check if video is already open */
+            const existingPlayer =
+                card.querySelector(
+                    ".youtube-player-container"
                 );
 
+
+            if (existingPlayer) {
+                return;
             }
 
-        }
+
+            /* Get YouTube video ID */
+            const videoId =
+                card.getAttribute("data-video-id");
 
 
-        activePlayer = null;
+            if (!videoId) {
+                console.warn(
+                    "No YouTube video ID found."
+                );
 
-        activeCard = null;
+                return;
+            }
+
+
+            /* Find thumbnail area */
+            const thumbnail =
+                card.querySelector(
+                    ".video-thumbnail"
+                );
+
+
+            if (!thumbnail) {
+                return;
+            }
+
+
+            /* ========================================
+               CREATE YOUTUBE PLAYER
+            ======================================== */
+
+            const playerContainer =
+                document.createElement("div");
+
+            playerContainer.className =
+                "youtube-player-container";
+
+
+            const iframe =
+                document.createElement("iframe");
+
+
+            iframe.src =
+                "https://www.youtube-nocookie.com/embed/"
+                + videoId
+                + "?autoplay=1&rel=0&enablejsapi=1";
+
+
+            iframe.title =
+                "StoryTime African Folktales Video";
+
+
+            iframe.setAttribute(
+                "allow",
+                "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            );
+
+
+            iframe.setAttribute(
+                "allowfullscreen",
+                ""
+            );
+
+
+            playerContainer.appendChild(
+                iframe
+            );
+
+
+            /* Replace thumbnail with video */
+            thumbnail.innerHTML = "";
+
+            thumbnail.appendChild(
+                playerContainer
+            );
+
+        });
+
+    });
+
+
+    /* ================================================
+       STOP OTHER VIDEOS
+    ================================================ */
+
+    function stopOtherVideos(currentCard) {
+
+        const allIframes =
+            document.querySelectorAll(
+                ".youtube-player-container iframe"
+            );
+
+
+        allIframes.forEach(function (iframe) {
+
+            /*
+             * Find the card containing this iframe.
+             */
+
+            const card =
+                iframe.closest(".video-card");
+
+
+            /*
+             * Don't stop the video
+             * that was just selected.
+             */
+
+            if (card === currentCard) {
+                return;
+            }
+
+
+            /*
+             * Tell YouTube to pause it.
+             */
+
+            iframe.contentWindow.postMessage(
+                JSON.stringify({
+                    event: "command",
+                    func: "pauseVideo",
+                    args: []
+                }),
+                "*"
+            );
+
+        });
 
     }
 
 
-    /* =================================
-       CREATE YOUTUBE PLAYER
-    ================================= */
+    /* ================================================
+       PAUSE VIDEOS WHEN USER LEAVES PAGE
+    ================================================ */
 
-    function createPlayer(card) {
+    document.addEventListener(
+        "visibilitychange",
+        function () {
 
+            if (
+                document.visibilityState === "hidden"
+            ) {
 
-        const videoId =
-            card.getAttribute(
-                "data-video-id"
-            );
+                const iframes =
+                    document.querySelectorAll(
+                        ".youtube-player-container iframe"
+                    );
 
 
-        const thumbnail =
-            card.querySelector(
-                ".video-thumbnail"
-            );
+                iframes.forEach(function (iframe) {
 
+                    iframe.contentWindow.postMessage(
+                        JSON.stringify({
+                            event: "command",
+                            func: "pauseVideo",
+                            args: []
+                        }),
+                        "*"
+                    );
 
-        if (
-            !videoId ||
-            !thumbnail
-        ) {
+                });
 
-            return;
-
-        }
-
-
-        /*
-           Stop previous video first
-        */
-
-        stopCurrentVideo();
-
-
-        /*
-           Clear thumbnail
-        */
-
-        thumbnail.innerHTML = "";
-
-
-        /*
-           Create player wrapper
-        */
-
-        const playerWrapper =
-            document.createElement(
-                "div"
-            );
-
-
-        playerWrapper.className =
-            "youtube-player-container";
-
-
-        thumbnail.appendChild(
-            playerWrapper
-        );
-
-
-        /*
-           Create YouTube player
-        */
-
-        const player =
-            new YT.Player(
-                playerWrapper,
-                {
-
-                    width: "100%",
-
-                    height: "100%",
-
-
-                    videoId: videoId,
-
-
-                    playerVars: {
-
-                        autoplay: 1,
-
-                        controls: 1,
-
-                        rel: 0,
-
-                        playsinline: 1,
-
-                        modestbranding: 1
-
-                    },
-
-
-                    events: {
-
-                        onStateChange:
-                            function (event) {
-
-                                /*
-                                   If this video starts
-                                   playing, make sure
-                                   previous one is stopped.
-                                */
-
-                                if (
-                                    event.data ===
-                                    YT.PlayerState.PLAYING
-                                ) {
-
-                                    if (
-                                        activePlayer &&
-                                        activePlayer !==
-                                        event.target
-                                    ) {
-
-                                        try {
-
-                                            activePlayer.stopVideo();
-
-                                        } catch (error) {}
-
-                                    }
-
-
-                                    activePlayer =
-                                        event.target;
-
-                                    activeCard =
-                                        card;
-
-                                }
-
-                            }
-
-                    }
-
-                }
-            );
-
-
-        activePlayer = player;
-
-        activeCard = card;
-
-    }
-
-
-    /* =================================
-       PLAY SELECTED CARD
-    ================================= */
-
-    function playCard(card) {
-
-
-        if (!youtubeReady) {
-
-            pendingCard = card;
-
-            loadYouTubeAPI();
-
-            return;
-
-        }
-
-
-        createPlayer(card);
-
-    }
-
-
-    /* =================================
-       CARD CLICK
-    ================================= */
-
-    cards.forEach(
-        function (card) {
-
-
-            card.addEventListener(
-                "click",
-                function () {
-
-                    playCard(card);
-
-                }
-            );
-
+            }
 
         }
     );
 
+});                        
 
-    /* =================================
-       LOAD YOUTUBE API
-    ================================= */
-
-    loadYouTubeAPI();
-
-
-})();
-
-
-
-
-
-
-                                    
-
-                
