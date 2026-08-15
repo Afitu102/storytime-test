@@ -753,106 +753,105 @@ box-shadow:0 8px 25px rgba(0,0,0,.25);
 
 /* =====================================================
    STORYTIME
-   PREMIUM AFRICAN FOLKTALES VIDEO FEED
+   NETFLIX-STYLE AFRICAN FOLKTALES
 ===================================================== */
 
 .african-video-page {
-
-    background: #08090d;
-
-    color: #f5f1e8;
-
+    background: #080808;
+    color: #ffffff;
 }
 
 
 /* =====================================================
-   VIDEO FEED
+   MAIN PAGE
 ===================================================== */
 
-.african-video-page .video-feed {
-
+.netflix-video-page {
     width: 100%;
-
-    max-width: 920px;
-
+    max-width: 1000px;
     margin: 0 auto;
 
-    padding: 25px 18px 110px;
-
+    padding: 20px 20px 100px;
 }
 
 
 /* =====================================================
-   PAGE HEADER
+   INTRO
 ===================================================== */
 
-.african-video-page .video-feed-header {
-
-    padding: 20px 0 30px;
-
+.netflix-intro {
+    padding: 25px 0 30px;
 }
 
 
-.african-video-page .video-category {
-
+.netflix-kicker {
     margin-bottom: 8px;
 
     color: #d4af37 !important;
 
     font-size: 11px;
-
     font-weight: 800;
 
     letter-spacing: 3px;
-
 }
 
 
-.african-video-page .video-feed-header h2 {
-
-    margin: 0 0 8px;
+.netflix-intro h2 {
+    margin: 0 0 7px;
 
     color: #ffffff !important;
 
-    font-size: clamp(30px, 5vw, 44px);
+    font-size: clamp(30px, 5vw, 45px);
 
     line-height: 1.1;
-
 }
 
 
-.african-video-page .video-feed-header p {
-
-    max-width: 650px;
-
+.netflix-intro p {
     margin: 0;
 
-    color: #a9a6a0 !important;
+    color: #9d9d9d !important;
 
-    font-size: 15px;
-
-    line-height: 1.6;
-
+    font-size: 14px;
 }
 
 
 /* =====================================================
-   VIDEO ITEM
+   VIDEO LIBRARY
 ===================================================== */
 
-.african-video-page .story-video {
-
-    margin-bottom: 42px;
-
+.video-library {
+    width: 100%;
 }
 
 
 /* =====================================================
-   YOUTUBE PLAYER
+   VIDEO CARD
 ===================================================== */
 
-.african-video-page .youtube-player {
+.netflix-video-card {
+    width: 100%;
 
+    margin-bottom: 45px;
+
+    cursor: pointer;
+
+    transition:
+        transform .25s ease,
+        opacity .25s ease;
+}
+
+
+.netflix-video-card:hover {
+    transform: translateY(-3px);
+}
+
+
+/* =====================================================
+   THUMBNAIL
+===================================================== */
+
+.netflix-thumbnail {
     position: relative;
 
     width: 100%;
@@ -861,38 +860,51 @@ box-shadow:0 8px 25px rgba(0,0,0,.25);
 
     overflow: hidden;
 
-    background: #000000;
+    background: #111;
 
-    border-radius: 18px;
+    border-radius: 14px;
 
     box-shadow:
-        0 18px 45px rgba(0, 0, 0, 0.45);
+        0 18px 45px rgba(0,0,0,.45);
+}
 
+
+.netflix-thumbnail img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    transition:
+        transform .4s ease;
+}
+
+
+.netflix-video-card:hover
+.netflix-thumbnail img {
+    transform: scale(1.035);
 }
 
 
 /* =====================================================
-   YOUTUBE PLACEHOLDER
+   THUMBNAIL OVERLAY
 ===================================================== */
 
-.african-video-page .youtube-placeholder {
-
+.thumbnail-overlay {
     position: absolute;
 
     inset: 0;
 
-    display: flex;
+    background:
+        linear-gradient(
+            to top,
+            rgba(0,0,0,.55),
+            transparent 55%
+        );
 
-    align-items: center;
-
-    justify-content: center;
-
-    cursor: pointer;
-
-    background-size: cover;
-
-    background-position: center;
-
+    pointer-events: none;
 }
 
 
@@ -900,64 +912,54 @@ box-shadow:0 8px 25px rgba(0,0,0,.25);
    PLAY BUTTON
 ===================================================== */
 
-.african-video-page .youtube-play-button {
+.netflix-play {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%);
 
     width: 64px;
-
     height: 64px;
 
     display: flex;
 
     align-items: center;
-
     justify-content: center;
+
+    padding-left: 4px;
+
+    border: none;
 
     border-radius: 50%;
 
-    background: rgba(255, 0, 0, 0.95);
+    background:
+        rgba(255,255,255,.96);
 
-    color: #ffffff;
+    color: #080808;
 
-    font-size: 23px;
+    font-size: 22px;
 
-    padding-left: 3px;
+    cursor: pointer;
 
     box-shadow:
-        0 8px 30px rgba(0, 0, 0, 0.5);
+        0 10px 30px rgba(0,0,0,.45);
 
     transition:
         transform .2s ease,
         background .2s ease;
-
 }
 
 
-.african-video-page .youtube-placeholder:hover
-.youtube-play-button {
+.netflix-video-card:hover
+.netflix-play {
+    transform:
+        translate(-50%, -50%)
+        scale(1.08);
 
-    transform: scale(1.08);
-
-    background: #ff1717;
-
-}
-
-
-/* =====================================================
-   REAL YOUTUBE IFRAME
-===================================================== */
-
-.african-video-page .youtube-player iframe {
-
-    position: absolute;
-
-    inset: 0;
-
-    width: 100%;
-
-    height: 100%;
-
-    border: 0;
-
+    background: #ffffff;
 }
 
 
@@ -965,66 +967,71 @@ box-shadow:0 8px 25px rgba(0,0,0,.25);
    VIDEO INFORMATION
 ===================================================== */
 
-.african-video-page .story-video-info {
-
-    padding: 14px 3px 0;
-
+.netflix-video-info {
+    padding: 13px 3px 0;
 }
 
 
-.african-video-page .story-video-label {
-
-    margin-bottom: 6px;
+.netflix-video-meta {
+    margin-bottom: 5px;
 
     color: #d4af37 !important;
 
     font-size: 10px;
-
     font-weight: 800;
 
     letter-spacing: 2px;
-
 }
 
 
-.african-video-page .story-video-info h3 {
-
+.netflix-video-info h3 {
     margin: 0 0 6px;
 
     color: #ffffff !important;
 
     font-size: clamp(19px, 3vw, 25px);
 
-    line-height: 1.3;
-
+    line-height: 1.25;
 }
 
 
-.african-video-page .story-video-info p {
-
+.netflix-video-info p {
     max-width: 700px;
 
     margin: 0;
 
-    color: #999791 !important;
+    color: #999999 !important;
 
-    font-size: 14px;
+    font-size: 13px;
 
     line-height: 1.6;
-
 }
 
 
 /* =====================================================
-   FIXED SUBSCRIBE BUTTON
+   ACTIVE VIDEO PLAYER
 ===================================================== */
 
-.african-video-page .fixed-youtube-subscribe {
+.netflix-thumbnail iframe {
+    position: absolute;
 
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    border: 0;
+}
+
+
+/* =====================================================
+   SUBSCRIBE BUTTON
+===================================================== */
+
+.netflix-subscribe {
     position: fixed;
 
-    right: 18px;
-
+    right: 20px;
     bottom: 20px;
 
     z-index: 9999;
@@ -1032,62 +1039,43 @@ box-shadow:0 8px 25px rgba(0,0,0,.25);
     display: flex;
 
     align-items: center;
+    justify-content: center;
 
-    gap: 9px;
+    gap: 8px;
 
-    padding: 12px 17px;
+    min-width: 125px;
+
+    padding: 12px 18px;
 
     border-radius: 50px;
 
-    background: #ff0000;
+    background: #e50914;
 
     color: #ffffff !important;
 
     text-decoration: none !important;
 
     font-size: 13px;
-
     font-weight: 800;
 
     box-shadow:
-        0 8px 30px rgba(0, 0, 0, 0.45);
+        0 8px 30px rgba(0,0,0,.5);
 
     transition:
         transform .2s ease,
         background .2s ease;
-
 }
 
 
-.african-video-page .fixed-youtube-subscribe:hover {
-
+.netflix-subscribe:hover {
     transform: translateY(-3px);
 
-    background: #e60000;
-
+    background: #f40612;
 }
 
 
-.african-video-page .subscribe-icon {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    width: 22px;
-
-    height: 22px;
-
-    border-radius: 50%;
-
-    background: #ffffff;
-
-    color: #ff0000 !important;
-
-    font-size: 10px;
-
+.netflix-subscribe span {
+    color: #ffffff !important;
 }
 
 
@@ -1097,122 +1085,86 @@ box-shadow:0 8px 25px rgba(0,0,0,.25);
 
 @media (max-width: 600px) {
 
-    .african-video-page .video-feed {
-
+    .netflix-video-page {
         padding:
-            15px 10px 100px;
-
+            12px 10px 90px;
     }
 
 
-    .african-video-page .video-feed-header {
-
+    .netflix-intro {
         padding:
-            18px 4px 25px;
-
+            15px 3px 25px;
     }
 
 
-    .african-video-page .video-feed-header h2 {
-
-        font-size: 32px;
-
+    .netflix-intro h2 {
+        font-size: 31px;
     }
 
 
-    .african-video-page .video-feed-header p {
-
-        font-size: 14px;
-
+    .netflix-video-card {
+        margin-bottom: 36px;
     }
 
 
-    .african-video-page .story-video {
-
-        margin-bottom: 35px;
-
+    .netflix-thumbnail {
+        border-radius: 10px;
     }
 
 
-    .african-video-page .youtube-player {
-
-        border-radius: 12px;
-
-    }
-
-
-    .african-video-page .youtube-play-button {
-
-        width: 56px;
-
-        height: 56px;
-
-        font-size: 20px;
-
-    }
-
-
-    .african-video-page .story-video-info {
-
-        padding-top: 12px;
-
-    }
-
-
-    .african-video-page .story-video-info h3 {
+    .netflix-play {
+        width: 55px;
+        height: 55px;
 
         font-size: 19px;
-
     }
 
 
-    .african-video-page .story-video-info p {
+    .netflix-video-info {
+        padding-top: 11px;
+    }
 
+
+    .netflix-video-info h3 {
+        font-size: 19px;
+    }
+
+
+    .netflix-video-info p {
         font-size: 13px;
-
     }
 
 
-    .african-video-page .fixed-youtube-subscribe {
-
+    .netflix-subscribe {
         right: 12px;
+        bottom: 13px;
 
-        bottom: 14px;
+        min-width: 115px;
 
-        padding: 11px 15px;
-
+        padding:
+            11px 15px;
     }
 
 }
 
 
 /* =====================================================
-   VERY SMALL PHONES
+   SMALL PHONES
 ===================================================== */
 
 @media (max-width: 360px) {
 
-    .african-video-page .video-feed {
-
+    .netflix-video-page {
         padding-left: 8px;
-
         padding-right: 8px;
-
     }
 
 
-    .african-video-page .fixed-youtube-subscribe {
-
-        right: 10px;
-
-        bottom: 10px;
-
+    .netflix-intro h2 {
+        font-size: 28px;
     }
 
-   }
+}
 
 
 
-
-
-    
