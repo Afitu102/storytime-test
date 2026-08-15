@@ -752,35 +752,11 @@ box-shadow:0 8px 25px rgba(0,0,0,.25);
   
 
 
-
 /* =====================================================
    STORYTIME
-   PREMIUM AFRICAN FOLKTALES VIDEO PAGE
-   MATCHING STORYTIME READ-STORY THEME
+   AFRICAN FOLKTALES VIDEO PAGE
+   CLEAN NETFLIX-STYLE DESIGN
 ===================================================== */
-
-
-/* =====================================================
-   STORYTIME COLORS
-===================================================== */
-
-:root {
-
-    --story-bg: #111827;
-
-    --story-card: #1f2937;
-
-    --story-secondary: #374151;
-
-    --story-text: #ffffff;
-
-    --story-muted: #d1d5db;
-
-    --story-border: #374151;
-
-    --story-accent: #f59e0b;
-
-}
 
 
 /* =====================================================
@@ -788,64 +764,28 @@ box-shadow:0 8px 25px rgba(0,0,0,.25);
 ===================================================== */
 
 * {
-
     box-sizing: border-box;
-
     margin: 0;
-
     padding: 0;
-
 }
 
 
 html {
-
     scroll-behavior: smooth;
-
 }
 
 
 body {
-
     min-height: 100vh;
 
-    background: var(--story-bg);
+    background: #ffffff;
 
-    color: var(--story-text);
+    color: #111111;
 
     font-family:
         Arial,
         Helvetica,
         sans-serif;
-
-    transition:
-        background 0.3s ease,
-        color 0.3s ease;
-
-}
-
-
-/* =====================================================
-   LIGHT MODE
-   YOUR EXISTING JS USES body.light-mode
-===================================================== */
-
-body.light-mode {
-
-    --story-bg: #f5f5f5;
-
-    --story-card: #ffffff;
-
-    --story-secondary: #ececec;
-
-    --story-text: #111827;
-
-    --story-muted: #4b5563;
-
-    --story-border: #d1d5db;
-
-    --story-accent: #f59e0b;
-
 }
 
 
@@ -854,7 +794,6 @@ body.light-mode {
 ===================================================== */
 
 .site-header {
-
     position: sticky;
 
     top: 0;
@@ -873,71 +812,61 @@ body.light-mode {
 
     padding: 14px 24px;
 
-    background: var(--story-bg);
+    background: rgba(255, 255, 255, 0.96);
 
     border-bottom:
-        1px solid var(--story-border);
+        1px solid #e5e5e5;
 
-    backdrop-filter: blur(16px);
+    backdrop-filter: blur(12px);
 
-    -webkit-backdrop-filter: blur(16px);
-
+    -webkit-backdrop-filter: blur(12px);
 }
 
 
 .site-logo {
-
-    color: var(--story-text);
+    color: #111111;
 
     font-size: 20px;
 
     font-weight: 800;
 
     letter-spacing: -0.5px;
-
 }
 
 
 .header-actions {
-
     display: flex;
 
     align-items: center;
 
     gap: 9px;
-
 }
 
 
 /* =====================================================
-   EXISTING STORYTIME THEME BUTTON
+   THEME BUTTON
+   NORMAL WEBSITE STYLE
 ===================================================== */
 
 .theme-btn {
-
     min-height: 40px;
 
     padding: 9px 15px;
 
-    border-radius: 10px;
+    border-radius: 8px;
 
-    background: var(--story-card);
+    background: #f5f5f5;
 
     border:
-        1px solid var(--story-border);
+        1px solid #dddddd;
 
-    color: var(--story-text);
+    color: #111111;
 
     cursor: pointer;
 
     font-size: 13px;
 
     font-weight: 700;
-
-    transition:
-        background 0.3s ease,
-        color 0.3s ease;
-
 }
 
 
@@ -946,7 +875,6 @@ body.light-mode {
 ===================================================== */
 
 .back-button {
-
     display: inline-flex;
 
     align-items: center;
@@ -957,14 +885,14 @@ body.light-mode {
 
     padding: 9px 15px;
 
-    border-radius: 10px;
+    border-radius: 8px;
 
-    background: var(--story-card);
+    background: #f5f5f5;
 
     border:
-        1px solid var(--story-border);
+        1px solid #dddddd;
 
-    color: var(--story-text);
+    color: #111111;
 
     text-decoration: none;
 
@@ -973,16 +901,12 @@ body.light-mode {
     font-weight: 700;
 
     transition:
-        background 0.3s ease,
-        color 0.3s ease;
-
+        background 0.2s ease;
 }
 
 
 .back-button:hover {
-
-    background: var(--story-secondary);
-
+    background: #e9e9e9;
 }
 
 
@@ -991,7 +915,6 @@ body.light-mode {
 ===================================================== */
 
 .video-page {
-
     width: 100%;
 
     max-width: 1050px;
@@ -1000,7 +923,6 @@ body.light-mode {
 
     padding:
         30px 22px 110px;
-
 }
 
 
@@ -1009,52 +931,44 @@ body.light-mode {
 ===================================================== */
 
 .page-intro {
-
     padding:
         15px 0 32px;
-
 }
 
 
 .section-label {
-
     margin-bottom: 9px;
 
-    color: var(--story-accent);
+    color: #b8860b;
 
     font-size: 11px;
 
     font-weight: 800;
 
     letter-spacing: 3px;
-
 }
 
 
 .page-intro h1 {
-
     margin-bottom: 8px;
 
-    color: var(--story-text);
+    color: #111111;
 
     font-size:
         clamp(32px, 5vw, 48px);
 
     line-height: 1.08;
-
 }
 
 
 .page-intro p {
-
     max-width: 650px;
 
-    color: var(--story-muted);
+    color: #555555;
 
     font-size: 14px;
 
     line-height: 1.7;
-
 }
 
 
@@ -1063,9 +977,7 @@ body.light-mode {
 ===================================================== */
 
 .video-library {
-
     width: 100%;
-
 }
 
 
@@ -1074,37 +986,37 @@ body.light-mode {
 ===================================================== */
 
 .video-card {
-
     width: 100%;
 
-    margin-bottom: 48px;
+    margin-bottom: 45px;
 
     cursor: pointer;
 
-    background: var(--story-card);
+    background: #ffffff;
 
     border:
-        1px solid var(--story-border);
+        1px solid #e5e5e5;
 
-    border-radius: 16px;
+    border-radius: 14px;
 
     overflow: hidden;
+
+    box-shadow:
+        0 5px 20px
+        rgba(0, 0, 0, 0.07);
 
     transition:
         transform 0.25s ease,
         box-shadow 0.25s ease;
-
 }
 
 
 .video-card:hover {
-
     transform: translateY(-3px);
 
     box-shadow:
-        0 15px 35px
-        rgba(0,0,0,0.20);
-
+        0 12px 30px
+        rgba(0, 0, 0, 0.12);
 }
 
 
@@ -1113,7 +1025,6 @@ body.light-mode {
 ===================================================== */
 
 .video-thumbnail {
-
     position: relative;
 
     width: 100%;
@@ -1123,12 +1034,10 @@ body.light-mode {
     overflow: hidden;
 
     background: #000000;
-
 }
 
 
 .video-thumbnail img {
-
     position: absolute;
 
     inset: 0;
@@ -1142,25 +1051,21 @@ body.light-mode {
     display: block;
 
     transition:
-        transform 0.45s ease;
-
+        transform 0.4s ease;
 }
 
 
 .video-card:hover
 .video-thumbnail img {
-
     transform: scale(1.035);
-
 }
 
 
 /* =====================================================
-   THUMBNAIL DARK GRADIENT
+   THUMBNAIL GRADIENT
 ===================================================== */
 
 .thumbnail-dark {
-
     position: absolute;
 
     inset: 0;
@@ -1168,13 +1073,11 @@ body.light-mode {
     background:
         linear-gradient(
             to top,
-            rgba(0,0,0,0.60),
-            rgba(0,0,0,0.05) 60%,
-            rgba(0,0,0,0.20)
+            rgba(0, 0, 0, 0.55),
+            rgba(0, 0, 0, 0.02) 65%
         );
 
     pointer-events: none;
-
 }
 
 
@@ -1183,7 +1086,6 @@ body.light-mode {
 ===================================================== */
 
 .play-button {
-
     position: absolute;
 
     left: 50%;
@@ -1209,39 +1111,28 @@ body.light-mode {
 
     border-radius: 50%;
 
-    background: var(--story-accent);
+    background: #ffffff;
 
-    color: #111827;
+    color: #111111;
 
     font-size: 23px;
 
     cursor: pointer;
 
     box-shadow:
-        0 10px 35px
-        rgba(0,0,0,0.45);
+        0 8px 30px
+        rgba(0, 0, 0, 0.45);
 
     transition:
-        transform 0.2s ease,
-        background 0.2s ease;
-
+        transform 0.2s ease;
 }
 
 
 .video-card:hover
 .play-button {
-
     transform:
         translate(-50%, -50%)
         scale(1.08);
-
-}
-
-
-.play-button:hover {
-
-    background: #fbbf24;
-
 }
 
 
@@ -1250,54 +1141,46 @@ body.light-mode {
 ===================================================== */
 
 .video-details {
-
     padding:
         15px 17px 18px;
 
-    background: var(--story-card);
-
+    background: #ffffff;
 }
 
 
 .video-category {
-
     margin-bottom: 6px;
 
-    color: var(--story-accent);
+    color: #b8860b;
 
     font-size: 10px;
 
     font-weight: 800;
 
     letter-spacing: 2px;
-
 }
 
 
 .video-details h2 {
-
     margin-bottom: 7px;
 
-    color: var(--story-text);
+    color: #111111;
 
     font-size:
         clamp(19px, 3vw, 25px);
 
     line-height: 1.3;
-
 }
 
 
 .video-details p {
-
     max-width: 700px;
 
-    color: var(--story-muted);
+    color: #555555;
 
     font-size: 13px;
 
     line-height: 1.65;
-
 }
 
 
@@ -1306,7 +1189,6 @@ body.light-mode {
 ===================================================== */
 
 .youtube-player-container {
-
     position: absolute;
 
     inset: 0;
@@ -1316,12 +1198,10 @@ body.light-mode {
     height: 100%;
 
     background: #000000;
-
 }
 
 
 .youtube-player-container iframe {
-
     width: 100%;
 
     height: 100%;
@@ -1329,7 +1209,6 @@ body.light-mode {
     border: none;
 
     display: block;
-
 }
 
 
@@ -1338,7 +1217,6 @@ body.light-mode {
 ===================================================== */
 
 .channel-section {
-
     display: flex;
 
     align-items: center;
@@ -1349,18 +1227,16 @@ body.light-mode {
 
     padding: 24px;
 
-    border-radius: 16px;
+    border-radius: 14px;
 
-    background: var(--story-card);
+    background: #f7f7f7;
 
     border:
-        1px solid var(--story-border);
-
+        1px solid #e3e3e3;
 }
 
 
 .channel-icon {
-
     flex-shrink: 0;
 
     width: 58px;
@@ -1373,51 +1249,44 @@ body.light-mode {
 
     justify-content: center;
 
-    border-radius: 15px;
+    border-radius: 14px;
 
-    background: var(--story-accent);
+    background: #e50914;
 
-    color: #111827;
+    color: #ffffff;
 
     font-size: 21px;
-
 }
 
 
 .channel-label {
-
     margin-bottom: 4px;
 
-    color: var(--story-accent);
+    color: #b8860b;
 
     font-size: 9px;
 
     font-weight: 800;
 
     letter-spacing: 2px;
-
 }
 
 
 .channel-content h2 {
-
     margin-bottom: 4px;
 
-    color: var(--story-text);
+    color: #111111;
 
     font-size: 21px;
-
 }
 
 
 .channel-content p {
-
-    color: var(--story-muted);
+    color: #555555;
 
     font-size: 13px;
 
     line-height: 1.5;
-
 }
 
 
@@ -1426,7 +1295,6 @@ body.light-mode {
 ===================================================== */
 
 .subscribe-button {
-
     position: fixed;
 
     right: 20px;
@@ -1447,13 +1315,14 @@ body.light-mode {
 
     min-height: 45px;
 
-    padding: 11px 17px;
+    padding:
+        11px 17px;
 
     border-radius: 50px;
 
-    background: var(--story-accent);
+    background: #e50914;
 
-    color: #111827 !important;
+    color: #ffffff !important;
 
     text-decoration: none;
 
@@ -1462,30 +1331,25 @@ body.light-mode {
     font-weight: 800;
 
     box-shadow:
-        0 10px 30px
-        rgba(0,0,0,0.30);
+        0 8px 25px
+        rgba(0, 0, 0, 0.25);
 
     transition:
         transform 0.2s ease,
         background 0.2s ease;
-
 }
 
 
 .subscribe-button:hover {
-
     transform:
         translateY(-3px);
 
-    background: #fbbf24;
-
+    background: #c80712;
 }
 
 
 .subscribe-button span {
-
-    color: #111827;
-
+    color: #ffffff;
 }
 
 
@@ -1495,163 +1359,120 @@ body.light-mode {
 
 @media (max-width: 600px) {
 
-
     .site-header {
-
         min-height: 62px;
 
         padding:
             11px 12px;
-
     }
 
 
     .site-logo {
-
         font-size: 17px;
-
     }
 
 
     .header-actions {
-
         gap: 6px;
-
     }
 
 
     .theme-btn {
-
         min-height: 37px;
 
         padding:
             8px 10px;
 
         font-size: 11px;
-
     }
 
 
     .back-button {
-
         min-height: 37px;
 
         padding:
             8px 11px;
 
         font-size: 12px;
-
     }
 
 
     .video-page {
-
         padding:
             18px 9px 100px;
-
     }
 
 
     .page-intro {
-
         padding:
             12px 3px 25px;
-
     }
 
 
     .page-intro h1 {
-
         font-size: 31px;
-
     }
 
 
     .page-intro p {
-
         font-size: 13px;
-
     }
 
 
     .video-card {
+        margin-bottom: 35px;
 
-        margin-bottom: 36px;
-
-        border-radius: 12px;
-
-    }
-
-
-    .video-thumbnail {
-
-        border-radius: 0;
-
+        border-radius: 11px;
     }
 
 
     .play-button {
-
         width: 56px;
 
         height: 56px;
 
         font-size: 19px;
-
     }
 
 
     .video-details {
-
         padding:
             12px 13px 15px;
-
     }
 
 
     .video-details h2 {
-
         font-size: 19px;
-
     }
 
 
     .video-details p {
-
         font-size: 12px;
-
     }
 
 
     .channel-section {
-
         padding: 18px;
 
         gap: 13px;
-
     }
 
 
     .channel-icon {
-
         width: 50px;
 
         height: 50px;
 
         border-radius: 13px;
-
     }
 
 
     .channel-content h2 {
-
         font-size: 18px;
-
     }
 
 
     .subscribe-button {
-
         right: 12px;
 
         bottom: 13px;
@@ -1662,7 +1483,6 @@ body.light-mode {
 
         padding:
             10px 14px;
-
     }
 
 }
@@ -1675,22 +1495,20 @@ body.light-mode {
 @media (max-width: 360px) {
 
     .video-page {
-
         padding-left: 7px;
 
         padding-right: 7px;
-
     }
 
 
     .page-intro h1 {
-
         font-size: 28px;
-
     }
 
 }
 
+
+    
 
 
         
