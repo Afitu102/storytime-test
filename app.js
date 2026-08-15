@@ -1077,93 +1077,384 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-/* =========================================
-   STORYTIME AFRICAN FOLKTALES VIDEOS
-========================================= */
+
+/* =====================================================
+   STORYTIME
+   YOUTUBE VIDEO SYSTEM
+
+   - Videos load only when clicked
+   - Each video remains playable
+   - Only one video plays at a time
+   - Starting another video stops the previous one
+===================================================== */
+
+
+/* =====================================================
+   YOUTUBE API
+===================================================== */
 
 (function () {
 
-    const videoItems = document.querySelectorAll(".video-item");
-
-    const player = document.getElementById("mainYouTubePlayer");
-
-    const videoTitle = document.getElementById("videoTitle");
-
-    const videoDescription =
-        document.getElementById("videoDescription");
+    const videoPlaceholders =
+        document.querySelectorAll(
+            ".african-video-page .youtube-placeholder"
+        );
 
 
-    if (!videoItems.length || !player) {
+    if (!videoPlaceholders.length) {
         return;
     }
 
 
-    videoItems.forEach(function (item) {
+    let youtubePlayers = [];
 
-        item.addEventListener("click", function () {
+    let youtubeAPIReady = false;
 
-            const videoId =
-                item.getAttribute("data-video-id");
-
-            const title =
-                item.getAttribute("data-video-title");
-
-            const description =
-                item.getAttribute("data-video-description");
+    let pendingVideoId = null;
 
 
-            if (!videoId) {
-                return;
-            }
+    /* =================================================
+       CREATE YOUTUBE API SCRIPT
+    ================================================= */
+
+    function loadYouTubeAPI() {
+
+        if (window.YT && window.YT.Player) {
+
+            youtubeAPIReady = true;
+
+            return;
+
+        }
 
 
-            /* Change YouTube video */
-
-            player.src =
-                "https://www.youtube-nocookie.com/embed/"
-                + videoId
-                + "?rel=0";
+        const existingScript =
+            document.querySelector(
+                'script[src="https://www.youtube.com/iframe_api"]'
+            );
 
 
-            /* Change title */
+        if (!existingScript) {
 
-            if (videoTitle && title) {
-                videoTitle.textContent = title;
-            }
+            const script =
+                document.createElement("script");
 
+            script.src =
+                "https://www.youtube.com/iframe_api";
 
-            /* Change description */
+            document.head.appendChild(script);
 
-            if (videoDescription && description) {
-                videoDescription.textContent = description;
-            }
-
-
-            /* Change active video */
-
-            videoItems.forEach(function (video) {
-
-                video.classList.remove("active");
-
-            });
+        }
 
 
-            item.classList.add("active");
+        const previousCallback =
+            window.onYouTubeIframeAPIReady;
 
 
-            /* Scroll back to player on phones */
+        window.onYouTubeIframeAPIReady =
+            function () {
 
-            if (window.innerWidth <= 700) {
+                if (typeof previousCallback === "function") {
 
-                player.scrollIntoView({
-                    behavior: "smooth",
-                    block: "center"
-                });
+                    previousCallback();
+
+                }
+
+
+                youtubeAPIReady = true;
+
+
+                if (pendingVideoId) {
+
+                    playVideo(pendingVideoId);
+
+                    pendingVideoId = null;
+
+                }
+
+            };
+
+    }
+
+
+    /* =================================================
+       STOP ALL OTHER VIDEOS
+    ================================================= */
+
+    function stopOtherVideos(activePlayer) {
+
+        youtubePlayers.forEach(function (player) {
+
+            if (
+                player &&
+                player !== activePlayer &&
+                typeof player.pauseVideo === "function"
+            ) {
+
+                try {
+
+                    player.pauseVideo();
+
+                } catch (error) {
+
+                    console.log(
+                        "Could not pause YouTube player."
+                    );
+
+                }
 
             }
 
         });
 
+    }
+
+
+    /* =================================================
+       CREATE VIDEO PLAYER
+    ================================================= */
+
+    function createPlayer(placeholder) {
+
+        const videoId =
+            placeholder.getAttribute(
+                "data-video-id"
+            );
+
+
+        if (!videoId) {
+            return null;
+        }
+
+
+        const playerContainer =
+            placeholder.parentElement;
+
+
+        const iframe =
+            document.createElement("div");
+
+
+        iframe.className =
+            "storytime-youtube-frame";
+
+
+        playerContainer.appendChild(iframe);
+
+
+        placeholder.remove();
+
+
+        const player =
+            new YT.Player(
+                iframe,
+                {
+
+                    videoId: videoId,
+
+                    playerVars: {
+
+                        rel: 0,
+
+                        modestbranding: 1,
+
+                        playsinline: 1
+
+                    },
+
+
+                    events: {
+
+                        onStateChange:
+                            function (event) {
+
+                                if (
+                                    event.data ===
+                                    YT.PlayerState.PLAYING
+                                ) {
+
+                                    stopOtherVideos(
+                                        event.target
+                                    );
+
+                                }
+
+                            }
+
+                    }
+
+                }
+            );
+
+
+        youtubePlayers.push(player);
+
+
+        return player;
+
+    }
+
+
+    /* =================================================
+       PLAY VIDEO
+    ================================================= */
+
+    function playVideo(videoId) {
+
+        if (!youtubeAPIReady) {
+
+            pendingVideoId = videoId;
+
+            loadYouTubeAPI();
+
+            return;
+
+        }
+
+
+        const placeholder =
+            document.querySelector(
+                '.youtube-placeholder[data-video-id="' +
+                videoId +
+                '"]'
+            );
+
+
+        if (placeholder) {
+
+            const player =
+                createPlayer(placeholder);
+
+
+            if (player) {
+
+                youtubePlayers.push(player);
+
+            }
+
+            return;
+
+        }
+
+
+        const players =
+            youtubePlayers;
+
+
+        players.forEach(function (player) {
+
+            if (
+                player &&
+                typeof player.getVideoData ===
+                "function"
+            ) {
+
+                const data =
+                    player.getVideoData();
+
+
+                if (
+                    data &&
+                    data.video_id === videoId
+                ) {
+
+                    try {
+
+                        player.playVideo();
+
+                    } catch (error) {
+
+                        console.log(
+                            "Unable to play video."
+                        );
+
+                    }
+
+                }
+
+            }
+
+        });
+
+    }
+
+
+    /* =================================================
+       PLACEHOLDER CLICK
+    ================================================= */
+
+    videoPlaceholders.forEach(function (placeholder) {
+
+        const videoId =
+            placeholder.getAttribute(
+                "data-video-id"
+            );
+
+
+        if (!videoId) {
+            return;
+        }
+
+
+        /* Add YouTube thumbnail */
+
+        placeholder.style.backgroundImage =
+            "url('https://img.youtube.com/vi/" +
+            videoId +
+            "/maxresdefault.jpg')";
+
+
+        placeholder.addEventListener(
+            "click",
+            function () {
+
+                if (!youtubeAPIReady) {
+
+                    pendingVideoId = videoId;
+
+                    loadYouTubeAPI();
+
+                    return;
+
+                }
+
+
+                const player =
+                    createPlayer(placeholder);
+
+
+                if (player) {
+
+                    setTimeout(function () {
+
+                        try {
+
+                            player.playVideo();
+
+                        } catch (error) {
+
+                            console.log(
+                                "Unable to start video."
+                            );
+
+                        }
+
+                    }, 300);
+
+                }
+
+            }
+        );
+
     });
 
+
+    /* =================================================
+       START API LOADING
+    ================================================= */
+
+    loadYouTubeAPI();
+
+
 })();
+            
