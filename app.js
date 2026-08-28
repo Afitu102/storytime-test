@@ -1078,68 +1078,62 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-
-
-                
 /* =====================================================
    STORYTIME
-   YOUTUBE VIDEO FUNCTIONALITY
-   NO THEME CODE HERE
+   YOUTUBE VIDEO PAGE
+   VIDEO FUNCTIONALITY ONLY
+
+   IMPORTANT:
+   This code does NOT save videos to Recently Read.
+   It does NOT control the StoryTime theme.
 ===================================================== */
 
 document.addEventListener("DOMContentLoaded", function () {
-
-    /* ================================================
-       GET ALL VIDEO CARDS
-    ================================================ */
 
     const videoCards =
         document.querySelectorAll(".video-card");
 
 
-    /* ================================================
-       OPEN YOUTUBE VIDEO
-    ================================================ */
+    /* =================================================
+       OPEN VIDEO
+    ================================================= */
 
     videoCards.forEach(function (card) {
 
         card.addEventListener("click", function () {
 
-            /* Stop every other video first */
-            stopOtherVideos(card);
+            /* Stop other videos first */
+            stopAllOtherVideos(card);
 
 
-            /* Check if video is already open */
-            const existingPlayer =
+            /* Don't create another player
+               if this video is already open */
+            if (
                 card.querySelector(
                     ".youtube-player-container"
-                );
-
-
-            if (existingPlayer) {
+                )
+            ) {
                 return;
             }
 
 
-            /* Get YouTube video ID */
+            /* Get YouTube ID */
             const videoId =
                 card.getAttribute("data-video-id");
 
 
             if (!videoId) {
                 console.warn(
-                    "No YouTube video ID found."
+                    "YouTube video ID is missing."
                 );
 
                 return;
             }
 
 
-            /* Find thumbnail area */
+            /* Get thumbnail */
             const thumbnail =
-                card.querySelector(
-                    ".video-thumbnail"
-                );
+                card.querySelector(".video-thumbnail");
 
 
             if (!thumbnail) {
@@ -1147,10 +1141,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
-            /* ========================================
-               CREATE YOUTUBE PLAYER
-            ======================================== */
-
+            /* Create player container */
             const playerContainer =
                 document.createElement("div");
 
@@ -1158,6 +1149,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 "youtube-player-container";
 
 
+            /* Create iframe */
             const iframe =
                 document.createElement("iframe");
 
@@ -1184,12 +1176,19 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
 
+            iframe.setAttribute(
+                "loading",
+                "lazy"
+            );
+
+
+            /* Put iframe inside player */
             playerContainer.appendChild(
                 iframe
             );
 
 
-            /* Replace thumbnail with video */
+            /* Replace thumbnail */
             thumbnail.innerHTML = "";
 
             thumbnail.appendChild(
@@ -1201,59 +1200,54 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
-    /* ================================================
+    /* =================================================
        STOP OTHER VIDEOS
-    ================================================ */
+    ================================================= */
 
-    function stopOtherVideos(currentCard) {
+    function stopAllOtherVideos(currentCard) {
 
-        const allIframes =
+        const players =
             document.querySelectorAll(
-                ".youtube-player-container iframe"
+                ".youtube-player-container"
             );
 
 
-        allIframes.forEach(function (iframe) {
-
-            /*
-             * Find the card containing this iframe.
-             */
+        players.forEach(function (player) {
 
             const card =
-                iframe.closest(".video-card");
+                player.closest(".video-card");
 
-
-            /*
-             * Don't stop the video
-             * that was just selected.
-             */
 
             if (card === currentCard) {
                 return;
             }
 
 
-            /*
-             * Tell YouTube to pause it.
-             */
+            const iframe =
+                player.querySelector("iframe");
 
-            iframe.contentWindow.postMessage(
-                JSON.stringify({
-                    event: "command",
-                    func: "pauseVideo",
-                    args: []
-                }),
-                "*"
-            );
+
+            if (iframe) {
+
+                iframe.contentWindow.postMessage(
+                    JSON.stringify({
+                        event: "command",
+                        func: "pauseVideo",
+                        args: []
+                    }),
+                    "*"
+                );
+
+            }
 
         });
 
     }
 
 
-    /* ================================================
-       PAUSE VIDEOS WHEN USER LEAVES PAGE
-    ================================================ */
+    /* =================================================
+       PAUSE VIDEOS WHEN PAGE IS HIDDEN
+    ================================================= */
 
     document.addEventListener(
         "visibilitychange",
@@ -1263,13 +1257,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.visibilityState === "hidden"
             ) {
 
-                const iframes =
+                const players =
                     document.querySelectorAll(
                         ".youtube-player-container iframe"
                     );
 
 
-                iframes.forEach(function (iframe) {
+                players.forEach(function (iframe) {
 
                     iframe.contentWindow.postMessage(
                         JSON.stringify({
@@ -1287,5 +1281,4 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     );
 
-});                        
-
+});
