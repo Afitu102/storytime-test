@@ -1282,3 +1282,209 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const body = document.body;
+
+    // Only run this system on Romantic Novels pages
+    if (body.dataset.category !== "Romantic Novels") {
+        return;
+    }
+
+    /*
+     * ==========================================
+     * ROMANTIC NOVEL CHAPTER SYSTEM
+     * ==========================================
+     */
+
+    const novelChapterContainer =
+        document.querySelector("#novelChapters");
+
+    if (!novelChapterContainer) {
+        return;
+    }
+
+    // Get the novel name from the page
+    const novelSlug =
+        novelChapterContainer.dataset.novel;
+
+    if (!novelSlug) {
+        return;
+    }
+
+    // Maximum number of chapters we will check
+    const maximumChapters = 50;
+
+    /*
+     * Check whether a chapter HTML file exists.
+     */
+    async function chapterExists(url) {
+
+        try {
+
+            const response = await fetch(url, {
+                method: "HEAD"
+            });
+
+            return response.ok;
+
+        } catch (error) {
+
+            return false;
+
+        }
+    }
+
+
+    /*
+     * Create a chapter card.
+     */
+    function createChapterCard(chapterNumber, available) {
+
+        const card = document.createElement("div");
+
+        card.className = "novel-chapter-card";
+
+
+        if (available) {
+
+            card.classList.add("chapter-available");
+
+            card.innerHTML = `
+                <a href="${novelSlug}-chapter-${chapterNumber}.html">
+
+                    <span class="chapter-icon">📖</span>
+
+                    <div class="chapter-info">
+
+                        <h3>
+                            Chapter ${chapterNumber}
+                        </h3>
+
+                        <p>
+                            Available to read
+                        </p>
+
+                    </div>
+
+                </a>
+            `;
+
+        } else {
+
+            card.classList.add("chapter-locked");
+
+            card.innerHTML = `
+
+                <span class="chapter-icon">
+                    🔒
+                </span>
+
+                <div class="chapter-info">
+
+                    <h3>
+                        Chapter ${chapterNumber}
+                    </h3>
+
+                    <p>
+                        Coming Soon...
+                    </p>
+
+                </div>
+
+            `;
+
+        }
+
+        novelChapterContainer.appendChild(card);
+    }
+
+
+    /*
+     * Find all available chapters.
+     */
+    async function loadChapters() {
+
+        novelChapterContainer.innerHTML = "";
+
+        let foundChapter = false;
+
+        let firstMissingChapter = 0;
+
+
+        for (
+            let chapter = 1;
+            chapter <= maximumChapters;
+            chapter++
+        ) {
+
+            const chapterUrl =
+                `${novelSlug}-chapter-${chapter}.html`;
+
+
+            const exists =
+                await chapterExists(chapterUrl);
+
+
+            if (exists) {
+
+                foundChapter = true;
+
+                createChapterCard(
+                    chapter,
+                    true
+                );
+
+            } else {
+
+                firstMissingChapter = chapter;
+
+                break;
+
+            }
+
+        }
+
+
+        /*
+         * If there is at least one available
+         * chapter, show the next chapter
+         * as Coming Soon.
+         */
+
+        if (foundChapter) {
+
+            createChapterCard(
+                firstMissingChapter,
+                false
+            );
+
+        } else {
+
+            novelChapterContainer.innerHTML = `
+
+                <div class="novel-empty">
+
+                    <h3>
+                        📖 Coming Soon
+                    </h3>
+
+                    <p>
+                        The first chapter of this novel
+                        will be available soon. ❤️
+                    </p>
+
+                </div>
+
+            `;
+
+        }
+
+    }
+
+
+    loadChapters();
+
+});
