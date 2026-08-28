@@ -472,6 +472,13 @@ box-shadow:0 0 5px gold;
 
 }
 
+to{
+
+box-shadow:0 0 20px gold;
+
+}
+
+}
 
 
 /* ======================================
@@ -746,13 +753,10 @@ box-shadow:0 8px 25px rgba(0,0,0,.25);
 
 .chapter.active{
     display:block;
-}
+   }
 
 
-  
 
-
-   
 
 /* =====================================================
    STORYTIME
@@ -1554,3 +1558,412 @@ body {
 
 
 
+
+
+/* =====================================================
+   STORYTIME — GLOBAL SPACING FIX
+   SPACING ONLY
+   DO NOT CHANGE COLORS / THEME / JAVASCRIPT
+===================================================== */
+
+
+/* =====================================================
+   HOME HEADER SPACING
+===================================================== */
+
+.home-header {
+    padding-top: 55px;
+    padding-bottom: 45px;
+}
+
+.home-logo {
+    margin-bottom: 28px;
+}
+
+.home-header .theme-btn {
+    margin-bottom: 28px;
+}
+
+.home-subtitle {
+    margin-top: 0;
+    line-height: 1.6;
+}
+
+
+/* =====================================================
+   MAIN HOME CONTAINER
+===================================================== */
+
+.home-container {
+    padding-top: 10px;
+    padding-bottom: 70px;
+}
+
+
+/* =====================================================
+   WELCOME BOX
+===================================================== */
+
+.welcome-box {
+    margin-bottom: 48px;
+}
+
+.welcome-box h2 {
+    margin-bottom: 18px;
+}
+
+.welcome-box p {
+    line-height: 1.7;
+}
+
+
+/* =====================================================
+   NEWLY ADDED
+===================================================== */
+
+.newly-added {
+    margin-bottom: 42px;
+}
+
+.newly-added > h2 {
+    margin-bottom: 24px;
+}
+
+
+/* =====================================================
+   RECENTLY PLAYED
+===================================================== */
+
+.recent-section {
+    margin-bottom: 50px;
+}
+
+.recent-section > h2 {
+    margin-bottom: 22px;
+}
+
+
+/*
+   Space between the Recently Played heading
+   and the story underneath it
+*/
+
+#recentStories {
+    margin-top: 10px;
+}
+
+#recentStories > * {
+    margin-bottom: 18px;
+}
+
+
+/* =====================================================
+   CATEGORY HEADING
+===================================================== */
+
+.category-heading {
+    margin-top: 48px;
+    margin-bottom: 28px;
+}
+
+
+/* =====================================================
+   CATEGORY GRID
+===================================================== */
+
+.category-grid {
+    gap: 28px;
+}
+
+
+/* =====================================================
+   CATEGORY CARDS
+===================================================== */
+
+.home-category-card {
+    padding: 28px;
+}
+
+.home-category-card .category-icon {
+    display: block;
+    margin-bottom: 22px;
+}
+
+.home-category-card h3 {
+    margin-bottom: 12px;
+}
+
+.home-category-card p {
+    line-height: 1.6;
+}
+
+
+/* =====================================================
+   READ STORIES SECTION
+===================================================== */
+
+.read-stories-section {
+    margin-top: 55px;
+    padding-top: 5px;
+}
+
+.read-stories-section .category-heading {
+    margin-top: 0;
+    margin-bottom: 28px;
+}
+
+
+/* =====================================================
+   VIDEO PAGE SPACING
+   Applies to the African Folktales video page
+===================================================== */
+
+.video-page {
+    padding-top: 40px;
+    padding-bottom: 120px;
+}
+
+.page-intro {
+    padding-top: 20px;
+    padding-bottom: 42px;
+}
+
+.page-intro h1 {
+    margin-bottom: 16px;
+}
+
+.page-intro p {
+    margin-top: 0;
+}
+
+.video-library {
+    gap: 42px;
+}
+
+.video-details {
+    padding-top: 20px;
+    padding-bottom: 22px;
+}
+
+.video-category {
+    margin-bottom: 9px;
+}
+
+.video-details h2 {
+    margin-bottom: 10px;
+}
+
+.video-details p {
+    margin-top: 0;
+    line-height: 1.7;
+}
+
+.channel-section {
+    margin-top: 35px;
+}
+
+
+/* =====================================================
+   STORY / AUDIO / READ-STORY PAGES
+   General spacing only
+===================================================== */
+
+.story-container,
+.story-page,
+.read-story-container,
+.read-story-page,
+.audio-container,
+.audio-page {
+    padding-top: 35px;
+    padding-bottom: 80px;
+}
+
+
+/* =====================================================
+   GENERAL SECTION SPACING
+===================================================== */
+
+section {
+    margin-bottom: 35px;
+}
+
+
+/* =====================================================
+   HEADINGS INSIDE SECTIONS
+===================================================== */
+
+section > h1,
+section > h2,
+section > h3 {
+    margin-bottom: 22px;
+}
+
+
+/* =====================================================
+   PARAGRAPH SPACING
+===================================================== */
+
+section p {
+    line-height: 1.7;
+}
+
+
+/* =====================================================
+   MOBILE SPACING
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .home-header {
+        padding-top: 38px;
+        padding-bottom: 35px;
+    }
+
+    .home-logo {
+        margin-bottom: 22px;
+    }
+
+    .home-header .theme-btn {
+        margin-bottom: 24px;
+    }
+
+    .home-container {
+        padding-top: 5px;
+        padding-bottom: 60px;
+    }
+
+    .welcome-box {
+        margin-bottom: 38px;
+    }
+
+    .welcome-box h2 {
+        margin-bottom: 14px;
+    }
+
+    .newly-added {
+        margin-bottom: 36px;
+    }
+
+    .newly-added > h2 {
+        margin-bottom: 20px;
+    }
+
+    .recent-section {
+        margin-bottom: 40px;
+    }
+
+    .recent-section > h2 {
+        margin-bottom: 20px;
+    }
+
+    #recentStories {
+        margin-top: 8px;
+    }
+
+    #recentStories > * {
+        margin-bottom: 16px;
+    }
+
+    .category-heading {
+        margin-top: 40px;
+        margin-bottom: 24px;
+    }
+
+    .category-grid {
+        gap: 22px;
+    }
+
+    .home-category-card {
+        padding: 24px;
+    }
+
+    .home-category-card .category-icon {
+        margin-bottom: 18px;
+    }
+
+    .home-category-card h3 {
+        margin-bottom: 10px;
+    }
+
+    .read-stories-section {
+        margin-top: 42px;
+    }
+
+    .read-stories-section .category-heading {
+        margin-bottom: 24px;
+    }
+
+
+    /* VIDEO PAGE */
+
+    .video-page {
+        padding-top: 25px;
+        padding-bottom: 105px;
+    }
+
+    .page-intro {
+        padding-top: 12px;
+        padding-bottom: 32px;
+    }
+
+    .page-intro h1 {
+        margin-bottom: 13px;
+    }
+
+    .video-library {
+        gap: 32px;
+    }
+
+    .video-details {
+        padding-top: 16px;
+        padding-bottom: 20px;
+    }
+
+    .video-details h2 {
+        margin-bottom: 8px;
+    }
+
+    .channel-section {
+        margin-top: 28px;
+    }
+
+
+    /* GENERAL PAGES */
+
+    section {
+        margin-bottom: 28px;
+    }
+
+    section > h1,
+    section > h2,
+    section > h3 {
+        margin-bottom: 18px;
+    }
+}
+
+
+/* =====================================================
+   VERY SMALL PHONES
+===================================================== */
+
+@media (max-width: 360px) {
+
+    .home-header {
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+
+    .category-grid {
+        gap: 18px;
+    }
+
+    .home-category-card {
+        padding: 21px;
+    }
+
+    .category-heading {
+        margin-top: 35px;
+        margin-bottom: 21px;
+    }
+
+}   
