@@ -1967,3 +1967,17 @@ section p {
     }
 
 }   
+
+
+
+
+
+.novel-cover-image {
+    display: block;
+    width: 100%;
+    max-width: 380px;
+    height: 500px;
+    object-fit: cover;
+    margin: 0 auto 25px;
+    border-radius: 15px;
+}
