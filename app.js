@@ -959,186 +959,101 @@ nextBtn.addEventListener("click", () => {
 
 });
 
+
 /* ======================================
-   STORYTIME READER ENGINE
+STORYTIME READER ENGINE
 ====================================== */
 
 const Reader = {
 
 saveStory(){
 
-    const title =
-        document.body.dataset.storyTitle ||
-        document.title;
+const title = document.body.dataset.storyTitle || document.title;
+const image = document.body.dataset.storyImage || "";
+const category = document.body.dataset.storyCategory || "";
+const page = window.location.pathname.split("/").pop();
+const storyID =
+document.title.replace(/\s+/g,"_");
 
-    const image =
-        document.body.dataset.storyImage || "";
+const chapter =
+parseInt(localStorage.getItem(storyID)) || 1;
+let recent=
+JSON.parse(localStorage.getItem("recentRead"))||[];
 
-    const category =
-        document.body.dataset.storyCategory ||
-        document.body.dataset.category ||
-        "";
+recent = [{
 
-    const page =
-        window.location.pathname.split("/").pop();
+title,
 
-    const storyID =
-        document.title.replace(/\s+/g,"_");
+image,
 
-    const chapter =
-        parseInt(localStorage.getItem(storyID)) || 1;
+category,
 
+page,
 
-    // Separate Romantic Novels from normal stories
-    const isRomanticNovel =
-        category === "Romantic Novels";
+chapter,
 
+time: Date.now()
 
-    const storageKey =
-        isRomanticNovel
-        ? "recentReadRomanticNovels"
-        : "recentRead";
+}];
 
+localStorage.setItem(
 
-    let recent =
-        JSON.parse(
-            localStorage.getItem(storageKey)
-        ) || [];
+"recentRead",
 
+JSON.stringify(recent)
 
-    // Remove previous copy of the same story
-    recent =
-        recent.filter(
-            story => story.title !== title
-        );
-
-
-    // Add the story to the beginning
-    recent.unshift({
-
-        title,
-
-        image,
-
-        category,
-
-        page,
-
-        chapter,
-
-        time: Date.now()
-
-    });
-
-
-    localStorage.setItem(
-
-        storageKey,
-
-        JSON.stringify(recent)
-
-    );
+);
 
 },
 
-
 loadRecent(){
 
-    const box =
-        document.getElementById(
-            "recentReadStories"
-        );
+const box=document.getElementById("recentReadStories");
 
-    if(!box)return;
+if(!box)return;
 
+const recent=
 
-    const category =
-        document.body.dataset.category ||
-        document.body.dataset.storyCategory ||
-        "";
+JSON.parse(localStorage.getItem("recentRead"))||[];
 
+if(recent.length===0){
 
-    const isRomanticNovel =
-        category === "Romantic Novels";
+box.innerHTML="<p>No stories read yet.</p>";
 
+return;
 
-    const storageKey =
-        isRomanticNovel
-        ? "recentReadRomanticNovels"
-        : "recentRead";
+}
 
+box.innerHTML="";
 
-    const recent =
-        JSON.parse(
-            localStorage.getItem(storageKey)
-        ) || [];
+recent.forEach(story=>{
 
+box.innerHTML+=`
 
-    if(recent.length === 0){
+<a href="${story.page}"
 
-        box.innerHTML =
-            "<p>No stories read yet.</p>";
+class="recent-card">
 
-        return;
+<img src="${story.image}"
 
-    }
+style="width:100%;height:130px;object-fit:cover;border-radius:15px;">
 
+<h3>${story.title}</h3>  <p>${story.category}</p>  <p>Continue from Chapter ${story.chapter}</p>  </a>  `;
 
-    box.innerHTML = "";
-
-
-    recent.forEach(story=>{
-
-        box.innerHTML += `
-
-        <a href="${story.page}"
-
-        class="recent-card">
-
-            <img
-
-            src="${story.image}"
-
-            style="
-                width:100%;
-                height:130px;
-                object-fit:cover;
-                border-radius:15px;
-            ">
-
-            <h3>
-                ${story.title}
-            </h3>
-
-            <p>
-                ${story.category}
-            </p>
-
-            <p>
-                Continue from Chapter
-                ${story.chapter}
-            </p>
-
-        </a>
-
-        `;
-
-    });
+});
 
 }
 
 };
 
+document.addEventListener("DOMContentLoaded",()=>{
 
-document.addEventListener(
-    "DOMContentLoaded",
-    ()=>{
+Reader.loadRecent();
 
-        Reader.loadRecent();
+})
 
-    }
-);
 
+        
 /* ======================================
    AUTO DETECT STORY / ROMANTIC NOVEL PAGE
 ====================================== */
