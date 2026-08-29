@@ -1567,3 +1567,152 @@ document.addEventListener("DOMContentLoaded", () => {
     loadChapters();
 
 });
+
+
+
+ /* ======================================
+    ROMANTIC NOVELS — RECENTLY READ
+ ====================================== */
+
+const RomanticReader = {
+
+saveNovel(){
+
+    const title =
+        document.body.dataset.storyTitle ||
+        document.title;
+
+    const image =
+        document.body.dataset.storyImage || "";
+
+    const category =
+        document.body.dataset.category ||
+        "Romantic Novels";
+
+    const page =
+        window.location.pathname.split("/").pop();
+
+    const novelID =
+        document.title.replace(/\s+/g, "_");
+
+    const chapter =
+        parseInt(localStorage.getItem(novelID)) || 1;
+
+    let recent =
+        JSON.parse(
+            localStorage.getItem("recentReadRomanticNovel")
+        ) || [];
+
+
+    /* Keep ONLY the most recently read novel */
+
+    recent = [{
+
+        title,
+
+        image,
+
+        category,
+
+        page,
+
+        chapter,
+
+        time: Date.now()
+
+    }];
+
+
+    localStorage.setItem(
+
+        "recentReadRomanticNovel",
+
+        JSON.stringify(recent)
+
+    );
+
+},
+
+
+loadNovel(){
+
+    const box =
+        document.getElementById(
+            "recentReadNovels"
+        );
+
+    if(!box)return;
+
+
+    const recent =
+        JSON.parse(
+            localStorage.getItem(
+                "recentReadRomanticNovel"
+            )
+        ) || [];
+
+
+    if(recent.length === 0){
+
+        box.innerHTML =
+            "<p>No novels read yet.</p>";
+
+        return;
+
+    }
+
+
+    box.innerHTML = "";
+
+
+    recent.forEach(novel => {
+
+        box.innerHTML += `
+
+        <a href="${novel.page}"
+           class="recent-card">
+
+            <img
+                src="${novel.image}"
+                style="
+                    width:100%;
+                    height:130px;
+                    object-fit:cover;
+                    border-radius:15px;
+                "
+            >
+
+            <h3>
+                ${novel.title}
+            </h3>
+
+            <p>
+                🌹 Romantic Novel
+            </p>
+
+            <p>
+                Continue from Chapter
+                ${novel.chapter}
+            </p>
+
+        </a>
+
+        `;
+
+    });
+
+}
+
+};
+
+
+/* Load Romantic Novel Recently Read */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        RomanticReader.loadNovel();
+
+    }
+);
