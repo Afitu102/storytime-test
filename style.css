@@ -1981,3 +1981,58 @@ section p {
     margin: 0 auto 25px;
     border-radius: 15px;
 }
+
+
+/* ======================================
+   STORYTIME TEXT-TO-SPEECH PLAYER
+====================================== */
+
+.story-tts-player {
+    margin: 20px 0;
+    padding: 18px;
+    border-radius: 18px;
+    background: var(--card-bg, #ffffff);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    border: 1px solid rgba(0,0,0,0.08);
+}
+
+.tts-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.tts-controls {
+    margin-bottom: 15px;
+}
+
+.tts-controls label {
+    font-weight: 600;
+}
+
+.tts-controls select {
+    margin-left: 8px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+}
+
+.tts-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.tts-buttons button {
+    border: none;
+    padding: 10px 15px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.tts-buttons button:active {
+    transform: scale(0.97);
+}
