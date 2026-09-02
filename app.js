@@ -2055,3 +2055,482 @@ document.addEventListener(
 
     }
 );
+
+
+
+/* ======================================
+   STORYTIME TEXT-TO-SPEECH
+====================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const storyContent =
+        document.querySelector(".story-content");
+
+    if (!storyContent) {
+        return;
+    }
+
+    if (!("speechSynthesis" in window)) {
+        console.warn(
+            "Text-to-Speech is not supported on this device."
+        );
+        return;
+    }
+
+    /* ----------------------------------
+       CREATE PLAYER
+    ---------------------------------- */
+
+    const player =
+        document.createElement("div");
+
+    player.className =
+        "story-tts-player";
+
+    player.innerHTML = `
+
+        <div class="tts-title">
+            🔊 Listen to this story
+        </div>
+
+        <div class="tts-controls">
+
+            <label>
+                🎙️ Voice:
+                <select id="ttsVoice">
+                    <option value="male">
+                        Male
+                    </option>
+
+                    <option value="female">
+                        Female
+                    </option>
+                </select>
+            </label>
+
+        </div>
+
+        <div class="tts-buttons">
+
+            <button
+                id="ttsPlay"
+                type="button">
+                ▶️ Play
+            </button>
+
+            <button
+                id="ttsPause"
+                type="button">
+                ⏸️ Pause
+            </button>
+
+            <button
+                id="ttsStop"
+                type="button">
+                ⏹️ Stop
+            </button>
+
+        </div>
+
+    `;
+
+    /*
+     * Place player before the story.
+     */
+    storyContent.parentNode.insertBefore(
+        player,
+        storyContent
+    );
+
+
+    /* ----------------------------------
+       VARIABLES
+    ---------------------------------- */
+
+    let speechQueue = [];
+
+    let currentIndex = 0;
+
+    let selectedVoiceType = "male";
+
+    let isStopped = false;
+
+
+    /* ----------------------------------
+       GET TEXT
+    ---------------------------------- */
+
+    function getStoryText() {
+
+        return storyContent.innerText
+            .replace(/\s+/g, " ")
+            .trim();
+
+    }
+
+
+    /* ----------------------------------
+       GET AVAILABLE VOICES
+    ---------------------------------- */
+
+    let voices = [];
+
+    function loadVoices() {
+
+        voices =
+            window.speechSynthesis
+                .getVoices();
+
+    }
+
+    loadVoices();
+
+    if (
+        typeof speechSynthesis.onvoiceschanged !==
+        "undefined"
+    ) {
+
+        speechSynthesis.onvoiceschanged =
+            loadVoices;
+
+    }
+
+
+    /* ----------------------------------
+       SELECT VOICE
+    ---------------------------------- */
+
+    function getSelectedVoice() {
+
+        if (!voices.length) {
+            return null;
+        }
+
+        /*
+         * Try to identify voices by name.
+         */
+
+        const maleKeywords = [
+            "male",
+            "man",
+            "david",
+            "mark",
+            "daniel",
+            "george",
+            "alex"
+        ];
+
+        const femaleKeywords = [
+            "female",
+            "woman",
+            "zira",
+            "samantha",
+            "victoria",
+            "karen",
+            "susan",
+            "ava"
+        ];
+
+        const keywords =
+            selectedVoiceType === "male"
+                ? maleKeywords
+                : femaleKeywords;
+
+
+        /*
+         * Find the closest matching voice.
+         */
+
+        const matchingVoice =
+            voices.find(voice => {
+
+                const name =
+                    voice.name
+                        .toLowerCase();
+
+                return keywords.some(
+                    keyword =>
+                        name.includes(keyword)
+                );
+
+            });
+
+
+        /*
+         * If no matching voice exists,
+         * use the first available voice.
+         */
+
+        return matchingVoice ||
+               voices[0];
+
+    }
+
+
+    /* ----------------------------------
+       SPLIT STORY INTO SMALLER PARTS
+    ---------------------------------- */
+
+    function prepareSpeech() {
+
+        const text =
+            getStoryText();
+
+        if (!text) {
+            return [];
+        }
+
+        /*
+         * Split into manageable chunks.
+         * This prevents long stories from
+         * failing on some Android browsers.
+         */
+
+        const words =
+            text.split(" ");
+
+        const chunks = [];
+
+        let chunk = "";
+
+        words.forEach(word => {
+
+            if (
+                (chunk + " " + word)
+                    .length > 180
+            ) {
+
+                chunks.push(
+                    chunk.trim()
+                );
+
+                chunk = word;
+
+            } else {
+
+                chunk +=
+                    " " + word;
+
+            }
+
+        });
+
+        if (chunk.trim()) {
+
+            chunks.push(
+                chunk.trim()
+            );
+
+        }
+
+        return chunks;
+
+    }
+
+
+    /* ----------------------------------
+       SPEAK NEXT CHUNK
+    ---------------------------------- */
+
+    function speakNext() {
+
+        if (isStopped) {
+            return;
+        }
+
+        if (
+            currentIndex >=
+            speechQueue.length
+        ) {
+
+            currentIndex = 0;
+
+            return;
+
+        }
+
+        const text =
+            speechQueue[currentIndex];
+
+        const utterance =
+            new SpeechSynthesisUtterance(
+                text
+            );
+
+        const voice =
+            getSelectedVoice();
+
+        if (voice) {
+
+            utterance.voice =
+                voice;
+
+            utterance.lang =
+                voice.lang;
+
+        }
+
+        utterance.rate =
+            0.9;
+
+        utterance.pitch =
+            selectedVoiceType === "female"
+                ? 1.05
+                : 0.95;
+
+        utterance.onend = () => {
+
+            currentIndex++;
+
+            speakNext();
+
+        };
+
+        utterance.onerror = () => {
+
+            currentIndex++;
+
+            speakNext();
+
+        };
+
+        speechSynthesis.speak(
+            utterance
+        );
+
+    }
+
+
+    /* ----------------------------------
+       PLAY
+    ---------------------------------- */
+
+    document
+        .getElementById("ttsPlay")
+        .addEventListener(
+            "click",
+            () => {
+
+                selectedVoiceType =
+                    document.getElementById(
+                        "ttsVoice"
+                    ).value;
+
+                if (
+                    speechSynthesis.paused
+                ) {
+
+                    speechSynthesis.resume();
+
+                    return;
+
+                }
+
+                speechSynthesis.cancel();
+
+                speechQueue =
+                    prepareSpeech();
+
+                currentIndex = 0;
+
+                isStopped = false;
+
+                speakNext();
+
+            }
+        );
+
+
+    /* ----------------------------------
+       PAUSE
+    ---------------------------------- */
+
+    document
+        .getElementById("ttsPause")
+        .addEventListener(
+            "click",
+            () => {
+
+                if (
+                    speechSynthesis.speaking
+                ) {
+
+                    if (
+                        speechSynthesis.paused
+                    ) {
+
+                        speechSynthesis.resume();
+
+                    } else {
+
+                        speechSynthesis.pause();
+
+                    }
+
+                }
+
+            }
+        );
+
+
+    /* ----------------------------------
+       STOP
+    ---------------------------------- */
+
+    document
+        .getElementById("ttsStop")
+        .addEventListener(
+            "click",
+            () => {
+
+                isStopped = true;
+
+                speechSynthesis.cancel();
+
+                currentIndex = 0;
+
+            }
+        );
+
+
+    /* ----------------------------------
+       CHANGE VOICE
+    ---------------------------------- */
+
+    document
+        .getElementById("ttsVoice")
+        .addEventListener(
+            "change",
+            event => {
+
+                selectedVoiceType =
+                    event.target.value;
+
+                /*
+                 * If speech is currently
+                 * playing, restart using
+                 * the new voice.
+                 */
+
+                if (
+                    speechSynthesis.speaking
+                ) {
+
+                    speechSynthesis.cancel();
+
+                    speechQueue =
+                        prepareSpeech();
+
+                    currentIndex = 0;
+
+                    isStopped = false;
+
+                    speakNext();
+
+                }
+
+            }
+        );
+
+});
